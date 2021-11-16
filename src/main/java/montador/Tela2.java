@@ -22,9 +22,9 @@ public class Tela2 extends javax.swing.JFrame {
     protected static DefaultListModel<String> listMemoryModel = new DefaultListModel<>();
     protected static DefaultListModel<String> symbolTableModel = new DefaultListModel<>();
     protected static DefaultListModel<String> listRegisterModel = new DefaultListModel<>();
-    private Montador montador = new Montador();
-    private Memory memory = new Memory();
-    private Emulador emulador = new Emulador();
+    //private Montador montador = new Montador();
+    //private Memory memory = new Memory();
+    //private Emulador emulador = new Emulador();
     /**
      * Creates new form Tela2
      */
