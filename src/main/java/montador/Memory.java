@@ -1,7 +1,7 @@
 package montador;
 
 public class Memory{
-    private short[] palavras = new short[8192];
+    private short[] palavras = new short[4096];
 
     public Memory(){
         for(int i = 0; i < 4096; i++){

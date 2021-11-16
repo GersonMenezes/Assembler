@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Emulador;
+package montador;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +21,6 @@ public class Emulador {
 
     public Memory memory = new Memory();
     public boolean finished = false;
-    private VarTable varTable = new VarTable();
 
     public ArrayList<Short> inputStream = new ArrayList<Short>();
     private int inputStreamIndex = 0;
@@ -52,117 +51,6 @@ public class Emulador {
         this.memory = new Memory();
         this.error = null;
         this.outputStream="";
-    }
-    public void loadInstructions(String file){
-        String[] instructions = file.split("\\n");
-        String opdRegex=".*";
-        int j = 0, k = 0;
-        for(int i =0;i<instructions.length;i++){
-            String instruction = instructions[i].replace(","," ").replace("\\s+"," ");
-            String[] words = instruction.split("(\\s|,)+");
-            String [] params = Arrays.copyOfRange(words,1,3);
-            if(instruction.matches("add AX AX"))
-                memory.setPalavra((short)0x03C0, CS+j);
-            else if(instruction.matches("add AX DX")){
-                memory.setPalavra((short)0x03C2, CS+j);
-            }else if(instruction.matches("add AX "+opdRegex)){
-                memory.setPalavra((short)0x05, CS+j++);
-                memory.setPalavra(calculateOpd(params[1]), CS+j);
-            }else if(instruction.matches("div SI")){
-                memory.setPalavra((short)0xf7f6, CS+j);
-            }else if(instruction.matches("div AX")){
-                memory.setPalavra((short)0xf7c0, CS+j);
-            }else if(instruction.matches("sub AX AX")){
-                memory.setPalavra((short)0x2bc0, CS+j);
-            }else if(instruction.matches("sub AX DX")){
-                memory.setPalavra((short)0x2bc2, CS+j);
-            }else if(instruction.matches("sub AX "+opdRegex)){
-                memory.setPalavra((short)0x25, CS+j++);
-                memory.setPalavra(calculateOpd(params[1]), CS+j);
-            }else if(instruction.matches("mul SI")){
-                memory.setPalavra((short)0xf7f6, CS+j);
-            }else if(instruction.matches("mul AX")){
-                memory.setPalavra((short)0xf7f0, CS+j);
-            }else if(instruction.matches("cmp AX DX")){
-                memory.setPalavra((short)0x3BC2, CS+j);
-            }else if(instruction.matches("cmp AX "+opdRegex)){
-                memory.setPalavra((short)0x3d, CS+j++);
-                memory.setPalavra(calculateOpd(params[1]), CS+j);
-            }else if(instruction.matches("and AX DX")){
-                memory.setPalavra((short)0xf7C2, CS+j);
-            }else if(instruction.matches("and AX "+opdRegex)){
-                memory.setPalavra((short)0x25, CS+j++);
-                memory.setPalavra(calculateOpd(params[1]), CS+j);
-            }else if(instruction.matches("not AX")){
-                memory.setPalavra((short)0xF8C0, CS+j);
-            }else if(instruction.matches("or AX AX")){
-                memory.setPalavra((short)0x0BC0, CS+j);
-            }else if(instruction.matches("or AX DX")){
-                memory.setPalavra((short)0x0BC0, CS+j);
-            }else if(instruction.matches("or AX "+opdRegex)){
-                memory.setPalavra((short)0x0D, CS+j++);
-                memory.setPalavra(calculateOpd(params[1]), CS+j);
-            }else if(instruction.matches("xor AX AX")){
-                memory.setPalavra((short)0x33C0, CS+j);
-            }else if(instruction.matches("xor AX DX")){
-                memory.setPalavra((short)0x33C2, CS+j);
-            }else if(instruction.matches("xor AX "+opdRegex)){
-                memory.setPalavra((short)0x35, CS+j++);
-                memory.setPalavra(calculateOpd(params[1]), CS+j);
-            }else if(instruction.matches("jmp "+opdRegex)){
-                memory.setPalavra((short)0xEB, CS+j++);
-                memory.setPalavra(calculateOpd(params[0]), CS+j);
-            }else if(instruction.matches("jz "+opdRegex)){
-                memory.setPalavra((short)0x74, CS+j++);
-                memory.setPalavra(calculateOpd(params[0]), CS+j);
-            }else if(instruction.matches("jnz "+opdRegex)){
-                memory.setPalavra((short)0x75, CS+j++);
-                memory.setPalavra(calculateOpd(params[0]), CS+j);
-            }else if(instruction.matches("jp "+opdRegex)){
-                memory.setPalavra((short)0x7A, CS+j++);
-                memory.setPalavra(calculateOpd(params[0]), CS+j);
-            }else if(instruction.matches("call "+opdRegex)){
-                memory.setPalavra((short)0xE8, CS+j++);
-                memory.setPalavra(calculateOpd(params[0]), CS+j);
-            }else if(instruction.matches("ret")){
-                memory.setPalavra((short)0xEF, CS+j);
-            }else if(instruction.matches("hlt")){
-                memory.setPalavra((short)0xEE, CS+j);
-            }else if(instruction.matches("pop AX")){
-                memory.setPalavra((short)0x58C0, CS+j);
-            }else if(instruction.matches("pop DX")){
-                memory.setPalavra((short)0x58C2, CS+j);
-            }else if(instruction.matches("pop "+opdRegex)){
-                memory.setPalavra((short)0x58, CS+j++);
-                memory.setPalavra(calculateOpd(params[0]), CS+j);
-            }else if(instruction.matches("popf")){
-                memory.setPalavra((short)0x9C, CS+j);
-            }else if(instruction.matches("push AX")){
-                memory.setPalavra((short)0x50C0, CS+j);
-            }else if(instruction.matches("push DX")){
-                memory.setPalavra((short)0x50C2, CS+j);
-            }else if(instruction.matches("pushf")){
-                memory.setPalavra((short)0x9C, CS+j);
-            }else if(instruction.matches("store AX")){
-                memory.setPalavra((short)0x07C0, CS+j);
-            }else if(instruction.matches("store DX")){
-                memory.setPalavra((short)0x07C2, CS+j);
-            }else if(instruction.matches("read "+opdRegex)){
-                memory.setPalavra((short)0x12, CS+j++);
-                memory.setPalavra(calculateOpd(params[0]), CS+j);
-            }else if(instruction.matches("write "+opdRegex)){
-                memory.setPalavra((short)0x08, CS+j++);
-                memory.setPalavra(calculateOpd(params[0]), CS+j);
-            }else if(instruction ==""){
-
-            }else{
-                error = "Instrução não reconhecida";
-            }
-            mapIPLineIndex.add(k, i);
-            k++;
-            j++;
-            if(j>k) k++;
-        }
     }
     
     public void run(){

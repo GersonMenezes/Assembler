@@ -456,7 +456,7 @@ public class Montador {
         
         String[] vetor = string.split("\n");
         for (int i = 0; i < vetor.length; i++){     // Para adiciona texto intermediario na interface
-            Tela2.listSaidaModel.addElement(vetor[i]);
+            Tela2.listMemoryModel.addElement(vetor[i]);
         }
     }
             
