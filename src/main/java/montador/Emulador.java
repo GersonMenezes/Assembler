@@ -7,8 +7,22 @@ package montador;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Emulador {
+    
+    public int AX = 0;
+    public int DX = 0;
+    public int SP = 0;
+    public int SI = 0;
+    public int IP = 0;
+    public int SR = 0;
+    public int DS = 3000;
+    public int CS = 1000;
+    public int SS = 0;
+    
+
     public void print(String word){
         System.out.println(word);
     }
@@ -22,22 +36,12 @@ public class Emulador {
     public Memory memory = new Memory();
     public boolean finished = false;
 
-    public ArrayList<Short> inputStream = new ArrayList<Short>();
+    public ArrayList<Integer> inputStream = new ArrayList<Integer>();
     private int inputStreamIndex = 0;
     public String outputStream;
     public String error;
-    public short AX = 0;
-    public short DX = 0;
-
-    public short SP = 0;
-
-    public short SI = 0;
-    public short IP = 0;
-    public short SR = 0;
-
-    public short DS = 3000;
-    public short CS = 1000;
-    public short SS = 0;
+    
+   
     
     public ArrayList<Integer> mapIPLineIndex = new ArrayList<Integer>();
 
@@ -82,10 +86,10 @@ public class Emulador {
     public void step(){
         int div;
         int mul;
-        short opd = 0;
+        int opd = 0;
         if(finished) return;
         
-        short instruction = memory.getPalavra(CS+IP++);
+        int instruction = memory.getPalavra(CS+IP++);
         switch((int)instruction){
             case 0x03c0:// add ax
                 AX += AX;
@@ -99,13 +103,13 @@ public class Emulador {
             break;
             case 0xf7f6:// div si
                 div = AX / SI;
-                AX = (short)(div & 256);
-                DX = (short)(div >>> 8);
+                AX = (int)(div & 256);
+                DX = (int)(div >>> 8);
             break;
             case 0xf7c0:// div ax
                 div = AX / AX;
-                AX = (short)(div & 256);
-                DX = (short)(div >>> 8);
+                AX = (int)(div & 256);
+                DX = (int)(div >>> 8);
             break;
             case 0x2bc0:// sub ax
                 AX -= AX;
@@ -122,8 +126,8 @@ public class Emulador {
             // break;
             case 0xf7f0:// mul AX
                 mul = AX * AX;
-                AX = (short)(mul & 256);
-                DX = (short)(mul >>> 8);
+                AX = (int)(mul & 256);
+                DX = (int)(mul >>> 8);
             break;
             case 0x3d:// cmp opd
                 opd = memory.getPalavra(CS+IP++);
@@ -143,7 +147,7 @@ public class Emulador {
                 // CS+IP++;
             // break;
             case 0xf8c0:// not ax
-                AX = (short)~AX;
+                AX = (int)~AX;
             break;
             case 0x0bc0:// or ax
                 AX|=AX;
@@ -153,7 +157,7 @@ public class Emulador {
             break;
             case 0x0d:// or opd
                 opd = memory.getPalavra(CS+IP++);
-                AX|=opd;
+                AX |= opd;
             break;
             case 0x33c0:// xor ax
                 AX|=AX;
@@ -221,7 +225,7 @@ public class Emulador {
                 opd = memory.getPalavra(IP++);
                 outputStream = Util.convertIntegerToBinary(opd);
                 if(inputStream.size()>inputStreamIndex){
-                    memory.setPalavra(inputStream.get(inputStreamIndex++).shortValue(), opd);
+                    memory.setPalavra(inputStream.get(inputStreamIndex++).intValue(), opd);
                 }else{
                     IP-=2;
                 }
@@ -236,7 +240,7 @@ public class Emulador {
         }
     }
     
-    private short getRegister(String reg){
+    private int getRegister(String reg){
         switch(reg){
             case "AX":
             return AX;
@@ -254,7 +258,7 @@ public class Emulador {
             return 0;
         }
     }
-    private short setRegister(String reg, short value){
+    private int setRegister(String reg, int value){
         switch(reg){
             case "AX":
             return AX = value;
@@ -315,13 +319,13 @@ public class Emulador {
         }
     }
 
-    short calculateOpd (String opd){
+    int calculateOpd (String opd){
         if(opd.matches("[0-1]+b")){
-            return Short.parseShort(opd.replace("b",""),2);
+            return Integer.parseInt(opd.replace("b",""),2);
         }if(opd.matches("0x[0-9a-fA-F]+")){
-            return Short.parseShort(opd.replace("0x",""),16);
+            return Integer.parseInt(opd.replace("0x",""),16);
         }if(opd.matches("[0-9]+")){
-            return Short.parseShort(opd);
+            return Integer.parseInt(opd);
         }if(opd.matches("[A-Za-z][A-Za-z0-9]*")){
             // TODO retorna valor da variavel
         }
@@ -332,9 +336,24 @@ public class Emulador {
     }
 
     public void input (String input){
-        this.inputStream.add(Short.parseShort(input));
+        this.inputStream.add(Integer.parseInt(input));
         this.outputStream = Util.convertIntegerToBinary(Short.parseShort(input));
-        Short instruction = memory.getPalavra(CS+IP);
+        int instruction = memory.getPalavra(CS+IP);
         if(instruction==0x12) step();
     }
+    
+    public void updateRegister(){
+        
+       
+            Tela2.listRegisterModel.setElementAt("AX: " + AX, 0); 
+            Tela2.listRegisterModel.setElementAt("DX: " + DX, 1); 
+            Tela2.listRegisterModel.setElementAt("SP: " + SP, 2); 
+            Tela2.listRegisterModel.setElementAt("SI: " + SI, 3); 
+            Tela2.listRegisterModel.setElementAt("IP: " + IP, 4); 
+            Tela2.listRegisterModel.setElementAt("SR: " + SR, 5); 
+            Tela2.listRegisterModel.setElementAt("DS: " + DS, 6); 
+            Tela2.listRegisterModel.setElementAt("CS: " + CS, 7); 
+            Tela2.listRegisterModel.setElementAt("SS: " + SS, 8); 
+            
+    }  
 }
