@@ -19,9 +19,14 @@ import java.util.List;
 
 
 public class Montador {
+    
     public static LinkedHashMap<String, Simbolo> simbolos = new LinkedHashMap<String, Simbolo>();    //Linked NÃO perde a ordem que foi acrescentado    
     static public List<String> instrucoes = new ArrayList<String>();
     
+    
+    public Montador(){
+        
+    }
     
     public static void primeira_passagem() throws IOException {
         
@@ -438,7 +443,7 @@ public class Montador {
         
         String[] vetor = string.split("\n");
         for (int i = 0; i < vetor.length; i++){     // Para adiciona texto intermediario na interface
-            Tela2.listIntermediarioModel.addElement(vetor[i]);
+            Tela2.listMemoryModel.addElement(vetor[i]);
         }
     }
     
