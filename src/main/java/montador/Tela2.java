@@ -19,9 +19,9 @@ import javax.swing.DefaultListModel;
 public class Tela2 extends javax.swing.JFrame {
 
     public static String ArquivoCarregado = new String("") ;
-    protected static DefaultListModel<String> listIntermediarioModel = new DefaultListModel<>();
+    protected static DefaultListModel<String> listMemoryModel = new DefaultListModel<>();
     protected static DefaultListModel<String> symbolTableModel = new DefaultListModel<>();
-    protected static DefaultListModel<String> listSaidaModel = new DefaultListModel<>();
+    protected static DefaultListModel<String> listRegisterModel = new DefaultListModel<>();
     /**
      * Creates new form Tela2
      */
@@ -469,7 +469,7 @@ public class Tela2 extends javax.swing.JFrame {
     }//GEN-LAST:event_localizarFieldActionPerformed
 
     private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButtonActionPerformed
-        memoryJList.setModel(listIntermediarioModel);
+        memoryJList.setModel(listMemoryModel);
     }//GEN-LAST:event_loadButtonActionPerformed
 
     /**
