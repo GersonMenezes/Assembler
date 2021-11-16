@@ -8,7 +8,7 @@
  *
  * @author renafs
  */
-package Emulador;
+package montador;
 public class Util {
     public static String convertIntegerToBinary(short n) {
         if (n == 0) {

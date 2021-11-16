@@ -8,7 +8,7 @@ public class Memory{
             this.palavras[i] = (short)0;
         }  
     }
-    public void setPalavra(int position, short data){
+    public void setPalavra(short data, int position){
         this.palavras[position] = data;
     }
 
