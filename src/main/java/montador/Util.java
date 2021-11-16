@@ -10,7 +10,7 @@
  */
 package montador;
 public class Util {
-    public static String convertIntegerToBinary(short n) {
+    public static String convertIntegerToBinary(int n) {
         if (n == 0) {
             return "00000000 00000000";
         }
@@ -31,11 +31,11 @@ public class Util {
     static boolean getBit( int k,int n) {
         return ((k >> n) & 1)==1;
     }
-    public static short modifyBit(short target,int pos, boolean set)
+    public static int modifyBit(int target,int pos, boolean set)
     {
         int bit = set ? 1:0;
         int mask = 1 << pos;
-        return (short)((target & ~mask) |
+        return (int)((target & ~mask) |
             ((bit << pos) & mask));
     }
 }

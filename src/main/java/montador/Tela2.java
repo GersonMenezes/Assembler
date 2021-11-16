@@ -22,11 +22,15 @@ public class Tela2 extends javax.swing.JFrame {
     protected static DefaultListModel<String> listMemoryModel = new DefaultListModel<>();
     protected static DefaultListModel<String> symbolTableModel = new DefaultListModel<>();
     protected static DefaultListModel<String> listRegisterModel = new DefaultListModel<>();
+    private Montador montador = new Montador();
+    private Memory memory = new Memory();
+    private Emulador emulador = new Emulador();
     /**
      * Creates new form Tela2
      */
     public Tela2() {
         initComponents();
+        registersList.setModel(listRegisterModel);
     }
 
     /**
@@ -59,7 +63,7 @@ public class Tela2 extends javax.swing.JFrame {
         symbolTableLabel = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        registersList = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         executePanel = new javax.swing.JPanel();
         runStepButton = new javax.swing.JButton();
@@ -220,12 +224,12 @@ public class Tela2 extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(204, 255, 204));
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        registersList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList1);
+        jScrollPane2.setViewportView(registersList);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Registers");
@@ -516,7 +520,6 @@ public class Tela2 extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jListSimbolos;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
@@ -533,6 +536,7 @@ public class Tela2 extends javax.swing.JFrame {
     private javax.swing.JLabel memoryLabel;
     private javax.swing.JPanel memoryPanel;
     private javax.swing.JLabel outputLabel;
+    private javax.swing.JList<String> registersList;
     private javax.swing.JButton resetButton;
     private javax.swing.JButton runAllButton;
     private javax.swing.JButton runStepButton;
