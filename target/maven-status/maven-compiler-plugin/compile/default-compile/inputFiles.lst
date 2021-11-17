@@ -1,8 +1,11 @@
-C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\montador\Simbolo.java
+C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\tables\TabelaDeSimbolosLocais.java
 C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\montador\Util.java
 C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\montador\Memory.java
 C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\montador\Tela2.java
 C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\montador\Emulador.java
+C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\tables\TabelaDeSimbolosGlobais.java
+C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\tables\TabelaDeUso.java
 C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\montador\Macro.java
 C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\montador\Montador.java
+C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\tables\TabeladeDefinicao.java
 C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\montador\ProcessaMacro.java

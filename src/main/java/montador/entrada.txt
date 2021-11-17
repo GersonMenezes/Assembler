@@ -2,55 +2,25 @@ var1 DW 111
 var2 DW 222
 var3 DW 333
 var4 DW 444
-var5 EQU 555
-var6 EQU 666
-var7 EQU 777
-var8 DW 888
+const1 EQU 555
+const2 EQU 666
+const3 EQU 777
+label DW 888
 
-SomaMem MACRO Mem1, Mem2 ;; Soma duas variáveis
-push AX
-pop AX
-add AX,DX
-ENDM
 
-SomaMem 2,3
+or AX,const1
+xor AX,const2
+read const3
 
-add AX,AX
-add AX,DX
+
 add AX,var1
-div SI
-div AX
-sub AX,AX
-sub AX,DX
 sub AX,var2
-mul SI
-mul AX
-cmp AX,DX
 cmp AX,var3
-and AX,DX
 and AX,var4
-not AX
-or AX,AX
-or AX,DX
-or AX,var5
-xor AX,AX
-xor AX,DX
-xor AX,var6
 jmp label
 jz label
 jnz label
 jp label
 call label
-ret
-pop AX
-pop DX
-popf
 pop label
-push AX
-push DX
-pushf
-store AX
-store DX
-read var7
-write AX,var8
 hlt

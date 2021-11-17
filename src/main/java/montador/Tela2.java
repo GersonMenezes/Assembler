@@ -405,7 +405,6 @@ public class Tela2 extends javax.swing.JFrame {
             processador.processa();
             
             String linha = new String();
-            //System.out.println("teste = " + System.getProperty("user.dir"));
             String CaminhoDoArquivo = new String(System.getProperty("user.dir")+"/src/main/java/montador/entradaExpandida.txt");
             BufferedReader buffRead; //reader do arquivo
             
@@ -433,14 +432,12 @@ public class Tela2 extends javax.swing.JFrame {
     private void assembleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assembleButtonActionPerformed
         try{                                                                               // Carrega código fonte e transforma em intermediario
             Montador.primeira_passagem();
-            System.out.println("Button actioned ");
             jListSimbolos.setModel(symbolTableModel);
         } catch(IOException e){ 
             System.out.println("Erro 404: " + e.getMessage());
         }
         
         String linha = new String();
-        //System.out.println("teste = " + System.getProperty("user.dir"));
         String CaminhoDoArquivo = new String(System.getProperty("user.dir")+"/src/main/java/montador/firstPass.txt");
         BufferedReader buffRead; //reader do arquivo
         ArquivoCarregado = "";
@@ -462,7 +459,6 @@ public class Tela2 extends javax.swing.JFrame {
         
         try{
             Montador.segunda_passagem();
-            System.out.println("Button actioned ");
         } catch(IOException e){ 
             System.out.println("Erro 404: " + e.getMessage());
         } 
