@@ -22,8 +22,8 @@ public class Tela2 extends javax.swing.JFrame {
     protected static DefaultListModel<String> listMemoryModel = new DefaultListModel<>();
     protected static DefaultListModel<String> symbolTableModel = new DefaultListModel<>();
     protected static DefaultListModel<String> listRegisterModel = new DefaultListModel<>();
-    //private Montador montador = new Montador();
-    //private Memory memory = new Memory();
+    private Montador montador = new Montador();
+    public static Memory memory = new Memory();
     //private Emulador emulador = new Emulador();
     /**
      * Creates new form Tela2
@@ -431,7 +431,7 @@ public class Tela2 extends javax.swing.JFrame {
 
     private void assembleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assembleButtonActionPerformed
         try{                                                                               // Carrega código fonte e transforma em intermediario
-            Montador.primeira_passagem();
+            montador.primeira_passagem();
             jListSimbolos.setModel(symbolTableModel);
         } catch(IOException e){ 
             System.out.println("Erro 404: " + e.getMessage());
@@ -458,7 +458,7 @@ public class Tela2 extends javax.swing.JFrame {
         }
         
         try{
-            Montador.segunda_passagem();
+            montador.segunda_passagem();
         } catch(IOException e){ 
             System.out.println("Erro 404: " + e.getMessage());
         } 

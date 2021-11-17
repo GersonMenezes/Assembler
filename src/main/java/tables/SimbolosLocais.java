@@ -8,20 +8,29 @@ package tables;
  *
  * @author Gerson Menezes
  */
-public class TabelaDeSimbolosLocais {
+public class SimbolosLocais {
     
     private boolean relocable; // Para constante false (valor absoluto) para outros simbolos true (relocável)
     private String value;
     private boolean definition;
+    private int position;
     
-    public TabelaDeSimbolosLocais(){
+    public SimbolosLocais(){
         
     }
     
-    public TabelaDeSimbolosLocais(String value, boolean relocable, boolean definition) {
+    public SimbolosLocais(String value, boolean relocable, boolean definition) {
         this.relocable = relocable;
         this.value = value;
         this.definition = definition;
+        this.position = position;
+    }
+    
+    public SimbolosLocais(String value, int position, boolean relocable, boolean definition) {
+        this.relocable = relocable;
+        this.value = value;
+        this.definition = definition;
+        this.position = position;
     }
    
 
@@ -45,6 +54,14 @@ public class TabelaDeSimbolosLocais {
 
     public void setDefinition(boolean definition) {
         this.definition = definition;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
     
     

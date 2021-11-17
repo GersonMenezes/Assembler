@@ -1,10 +1,10 @@
 package montador;
 
 public class Memory{
-    private int[] palavras = new int[4096];
+    private int[] palavras = new int[8192];
 
     public Memory(){
-        for(int i = 0; i < 4096; i++){
+        for(int i = 0; i < 8192; i++){
             this.palavras[i] = (int)0;
         }  
     }

@@ -5,15 +5,15 @@
 package tables;
 
 
-public class TabelaDeSimbolosGlobais {
+public class SimbolosGlobais {
     
     private String value;
     private boolean relocable; // Para constante false (valor absoluto) para outros simbolos true (relocável)
 
-    public TabelaDeSimbolosGlobais(){
+    public SimbolosGlobais(){
         
     }
-    public TabelaDeSimbolosGlobais(String value, boolean relocable){
+    public SimbolosGlobais(String value, boolean relocable){
         
         this.value = value;
         this.relocable = relocable;

@@ -8,21 +8,28 @@ package tables;
  *
  * @author Gerson Menezes
  */
-public class TabelaDeUso {
+public class SimbolosUsados {
+    String name;
     private int signal; // 0 para + e 1 para -
     private int ocorrencia;
     
-    public TabelaDeUso(int ocorrencia){
+    public SimbolosUsados(String name, int ocorrencia){
         this.ocorrencia = ocorrencia;
+        this.name = name;
     }
-    public TabelaDeUso(int ocorrencia, int signal){
-        this.ocorrencia = ocorrencia;
-        this.signal = signal;
+   
+    public String getName() {
+        return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     public int getSignal(){
         return signal;
     }
     public int getOcorrencia(){
-        return signal;
+        return ocorrencia;
     }
 }
