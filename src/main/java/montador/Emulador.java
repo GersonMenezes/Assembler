@@ -33,7 +33,6 @@ public class Emulador {
         NULL
     }
 
-    public Memory memory = new Memory();
     public boolean finished = false;
 
     public ArrayList<Integer> inputStream = new ArrayList<Integer>();
@@ -52,7 +51,7 @@ public class Emulador {
         AX = 0;
         DX = 0;
         SR = 0;
-        this.memory = new Memory();
+        Tela2.memory = new Memory();
         this.error = null;
         this.outputStream="";
     }
@@ -89,7 +88,7 @@ public class Emulador {
         int opd = 0;
         if(finished) return;
         
-        int instruction = memory.getPalavra(CS+IP++);
+        int instruction = Tela2.memory.getPalavra(CS+IP++);
         switch((int)instruction){
             case 0x03c0:// add ax
                 AX += AX;
@@ -98,7 +97,7 @@ public class Emulador {
                 AX += DX;
             break;
             case 0x05: // add opd
-                opd = memory.getPalavra(CS+IP++);
+                opd = Tela2.memory.getPalavra(CS+IP++);
                 AX += opd;
             break;
             case 0xf7f6:// div si
@@ -118,7 +117,7 @@ public class Emulador {
                 AX -= DX;
             break;
             case 0x25:// sub opd
-                memory.getPalavra(CS+IP++);
+                Tela2.memory.getPalavra(CS+IP++);
                 AX -= opd;
             break;
             // case 0xf7f6:// mul si
@@ -130,7 +129,7 @@ public class Emulador {
                 DX = (int)(mul >>> 8);
             break;
             case 0x3d:// cmp opd
-                opd = memory.getPalavra(CS+IP++);
+                opd = Tela2.memory.getPalavra(CS+IP++);
                 setFlag("zf", AX == opd);
             break;
             case 0x3bc2://cmp DX
@@ -156,7 +155,7 @@ public class Emulador {
                 AX|=DX;
             break;
             case 0x0d:// or opd
-                opd = memory.getPalavra(CS+IP++);
+                opd = Tela2.memory.getPalavra(CS+IP++);
                 AX |= opd;
             break;
             case 0x33c0:// xor ax
@@ -166,54 +165,54 @@ public class Emulador {
                 AX|=DX;
             break;
             case 0x35:// xor opd
-                opd = memory.getPalavra(CS+IP++);
+                opd = Tela2.memory.getPalavra(CS+IP++);
                 AX^=opd;
             break;
             case 0xeb:// jmp
-                opd = memory.getPalavra(CS+IP++);
+                opd = Tela2.memory.getPalavra(CS+IP++);
                 IP = opd;
             break;
             case 0x74:// jz
-                opd = memory.getPalavra(CS+IP++);
+                opd = Tela2.memory.getPalavra(CS+IP++);
                 if(getFlag("zf")) IP = opd;
             break;
             case 0x75:// jnz
-                opd = memory.getPalavra(CS+IP++);
+                opd = Tela2.memory.getPalavra(CS+IP++);
                 if(!getFlag("zf")) IP = opd;
             break;
             case 0x7a:// jp
-                opd = memory.getPalavra(CS+IP++);
+                opd = Tela2.memory.getPalavra(CS+IP++);
                 if(!getFlag("SF")) IP = opd;
             break;
             case 0xe8:// call
-                opd = memory.getPalavra(CS+IP++);
-                memory.setPalavra(IP, SI++);
+                opd = Tela2.memory.getPalavra(CS+IP++);
+                Tela2.memory.setPalavra(IP, SI++);
                 IP = opd;
             break;
             case 0xef:// ret
-                IP = memory.getPalavra(--SI);
+                IP = Tela2.memory.getPalavra(--SI);
             break;
             case 0x58c0:// pop ax
-                AX = memory.getPalavra(--SI);
+                AX = Tela2.memory.getPalavra(--SI);
             break;
             case 0x58c2:// pop dx
-                DX = memory.getPalavra(--SI);
+                DX = Tela2.memory.getPalavra(--SI);
             break;
             case 0x59:// pop opd
-                opd = memory.getPalavra(IP++);
-                memory.setPalavra(memory.getPalavra(--SI), DS+opd);
+                opd = Tela2.memory.getPalavra(IP++);
+                Tela2.memory.setPalavra(Tela2.memory.getPalavra(--SI), DS+opd);
             break;
             case 0x9d:// popf
-                SR = memory.getPalavra(--SI);
+                SR = Tela2.memory.getPalavra(--SI);
             break;
             case 0x50c0:// push ax
-                memory.setPalavra(AX, DS+opd);
+                Tela2.memory.setPalavra(AX, DS+opd);
             break;
             case 0x50c2:// push dx
-                memory.setPalavra(DX, DS+opd);
+                Tela2.memory.setPalavra(DX, DS+opd);
             break;
             case 0x9c://pushf
-                memory.setPalavra(SR, SI++);
+                Tela2.memory.setPalavra(SR, SI++);
             break;
             case 0x07c0:// store ax
                 //todo
@@ -222,16 +221,16 @@ public class Emulador {
                 //todo
             break;
             case 0x12:// read opd
-                opd = memory.getPalavra(IP++);
+                opd = Tela2.memory.getPalavra(IP++);
                 outputStream = Util.convertIntegerToBinary(opd);
                 if(inputStream.size()>inputStreamIndex){
-                    memory.setPalavra(inputStream.get(inputStreamIndex++).intValue(), opd);
+                    Tela2.memory.setPalavra(inputStream.get(inputStreamIndex++).intValue(), opd);
                 }else{
                     IP-=2;
                 }
             break;
             case 0x08:// write opd
-                opd = memory.getPalavra(CS+IP++);
+                opd = Tela2.memory.getPalavra(CS+IP++);
                 outputStream = Util.convertIntegerToBinary(opd);
             break;
             case 0xEE: // hlt
@@ -338,7 +337,7 @@ public class Emulador {
     public void input (String input){
         this.inputStream.add(Integer.parseInt(input));
         this.outputStream = Util.convertIntegerToBinary(Short.parseShort(input));
-        int instruction = memory.getPalavra(CS+IP);
+        int instruction = Tela2.memory.getPalavra(CS+IP);
         if(instruction==0x12) step();
     }
     

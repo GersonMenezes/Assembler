@@ -24,6 +24,7 @@ public class Tela2 extends javax.swing.JFrame {
     protected static DefaultListModel<String> listRegisterModel = new DefaultListModel<>();
     private Montador montador = new Montador();
     public static Memory memory = new Memory();
+    public Emulador emulador = new Emulador();
     //private Emulador emulador = new Emulador();
     /**
      * Creates new form Tela2
@@ -493,15 +494,15 @@ public class Tela2 extends javax.swing.JFrame {
     }//GEN-LAST:event_loadButtonActionPerformed
 
     private void runStepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runStepButtonActionPerformed
-        // TODO add your handling code here:
+        emulador.step();
     }//GEN-LAST:event_runStepButtonActionPerformed
 
     private void runAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runAllButtonActionPerformed
-        // TODO add your handling code here:
+        emulador.run();
     }//GEN-LAST:event_runAllButtonActionPerformed
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
-        // TODO add your handling code here:
+        emulador.reset();
     }//GEN-LAST:event_resetButtonActionPerformed
 
     private void enterTerminalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterTerminalButtonActionPerformed
