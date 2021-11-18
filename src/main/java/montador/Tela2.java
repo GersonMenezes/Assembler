@@ -170,7 +170,7 @@ public class Tela2 extends javax.swing.JFrame {
             .addGroup(memoryPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(memoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(memoryPanelLayout.createSequentialGroup()
                         .addComponent(localizarField, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -210,7 +210,7 @@ public class Tela2 extends javax.swing.JFrame {
                 .addGroup(symbolTablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(symbolTableLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         symbolTablePanelLayout.setVerticalGroup(
             symbolTablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,10 +258,25 @@ public class Tela2 extends javax.swing.JFrame {
         executePanel.setBackground(new java.awt.Color(255, 255, 204));
 
         runStepButton.setText("Run Step");
+        runStepButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                runStepButtonActionPerformed(evt);
+            }
+        });
 
         runAllButton.setText("Run All");
+        runAllButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                runAllButtonActionPerformed(evt);
+            }
+        });
 
         resetButton.setText("Reset");
+        resetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout executePanelLayout = new javax.swing.GroupLayout(executePanel);
         executePanel.setLayout(executePanelLayout);
@@ -281,10 +296,10 @@ public class Tela2 extends javax.swing.JFrame {
             .addGroup(executePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(executePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(runAllButton, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(runAllButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(runStepButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(resetButton, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .addComponent(resetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -296,6 +311,11 @@ public class Tela2 extends javax.swing.JFrame {
         outputLabel.setText("Output Message");
 
         enterTerminalButton.setText("Enter");
+        enterTerminalButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enterTerminalButtonActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -471,6 +491,22 @@ public class Tela2 extends javax.swing.JFrame {
     private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButtonActionPerformed
         memoryJList.setModel(listMemoryModel);
     }//GEN-LAST:event_loadButtonActionPerformed
+
+    private void runStepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runStepButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_runStepButtonActionPerformed
+
+    private void runAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runAllButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_runAllButtonActionPerformed
+
+    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_resetButtonActionPerformed
+
+    private void enterTerminalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterTerminalButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_enterTerminalButtonActionPerformed
 
     /**
      * @param args the command line arguments

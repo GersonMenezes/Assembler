@@ -212,7 +212,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jScrollPane4" pref="212" max="32767" attributes="0"/>
+                          <Component id="jScrollPane4" pref="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="localizarField" min="-2" pref="146" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -317,7 +317,7 @@
                           <Component id="symbolTableLabel" min="-2" pref="218" max="-2" attributes="0"/>
                           <Component id="jScrollPane6" alignment="0" min="-2" pref="218" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="11" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -453,7 +453,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="runAllButton" pref="35" max="32767" attributes="0"/>
+                          <Component id="runAllButton" max="32767" attributes="0"/>
                           <Component id="runStepButton" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -468,16 +468,25 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Run Step"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="runStepButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="runAllButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Run All"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="runAllButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="resetButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Reset"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetButtonActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -550,6 +559,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Enter"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="enterTerminalButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
