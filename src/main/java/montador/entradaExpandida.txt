@@ -2,7 +2,7 @@
 space DW
 var DW 0011
 
-const EQU 10
+const EQU 0010
 
 move AX, var
 add AX, const

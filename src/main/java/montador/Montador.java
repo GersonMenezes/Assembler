@@ -89,10 +89,10 @@ public class Montador {
                 codigoIntermediario += "0x05";
                 String opd = instrucao.split("AX,")[1];
                 opd = opd.trim();
-               // System.out.println("Testando var 1. Nome: " + opd + " PC: " + programCounter);
+               System.out.println("Testando const 1. Nome: " + opd);
                 if(!(tabelaDeSimbolosLocais.get(opd).isRelocable())){  // Verifica se é uma constante
                     codigoIntermediario += tabelaDeSimbolosLocais.get(opd).getValue() + "\n";
-  
+                    //codigoIntermediario += "00" + "\n"; 
                 }else{
                     codigoIntermediario += "0000" + "\n";
                     
@@ -389,11 +389,23 @@ public class Montador {
                 String opd = instrucao.split("DW")[0];
                 opd = opd.trim();
                 try{
-                   String value = instrucao.split("DW ")[1]; 
-                   opd = opd.trim();
-                   tabelaDeSimbolosLocais.put(opd, new SimbolosLocais(value, dataCounter, true, true)); // Valor, posição, recolavel, definicao
-                   data.add((Integer.decode(value))); // preparar dw para receber qualquer base numerica
-                   data.add((0));
+                    String value = instrucao.split("DW ")[1]; 
+                    value = value.trim();
+                    if(value.length() == 4){  // Caso Variavel tenha 2 bytes
+                        String firstPart = value.substring(0, 2);
+                        String secondPart = value.substring(2, 4);
+                        value = secondPart + firstPart;
+                        tabelaDeSimbolosLocais.put(opd, new SimbolosLocais(value, dataCounter, true, true)); // Valor, posição, recolavel, definicao
+                        data.add((Integer.parseInt(secondPart))); // preparar dw para receber qualquer base numerica
+                        data.add((Integer.parseInt(firstPart)));
+                    }
+                    else if(value.length() == 2){  // Caso Variavel tenha 2 bytes
+                        tabelaDeSimbolosLocais.put(opd, new SimbolosLocais(value, dataCounter, true, true)); // Valor, posição, recolavel, definicao
+                        data.add((0)); // preparar dw para receber qualquer base numerica
+                    }else{
+                        System.out.println("Size of bytes not accepted ");
+                    }
+                   
                 }catch(ArrayIndexOutOfBoundsException e){
                     tabelaDeSimbolosLocais.put(opd, new SimbolosLocais(true, true)); // Valor não inicializado
                     data.add((0));
@@ -415,10 +427,14 @@ public class Montador {
                         String hex = value.split("h")[1];
                         codigoIntermediario += tabelaDeSimbolosLocais.get(opd).getValue() + "\n";
                 }*/
+                
+                if(value.length() == 4){
+                    String firstPart = instrucao.substring(0, 2);
+                    String secondPart = instrucao.substring(2, 4);
+                    value = secondPart + firstPart;
+                }
                 tabelaDeSimbolosLocais.put(opd, new SimbolosLocais(value, false, true));
-                
-                
-                
+                 
             }else if(instrucao.matches(".*PROC.*")){
                 String label = instrucao.split("PROC")[0];
                 label = label.trim();

@@ -1,7 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
+/* Conteúdo do código objeto
+// Cabeçalho: Tamanho do arquivo, tamanho do cabeçalho, tamanho dos dados, tamanho das instruções
+// Dados
+// Intruções
+*/
 package montador;
 
 /**
@@ -10,6 +12,7 @@ package montador;
  */
 public class Carregador {
     
+    // Tela2.memory.setPalavra(data, position);
     
     public Carregador(String caminho){
         loadMemory();
