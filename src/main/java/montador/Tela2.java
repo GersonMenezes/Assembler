@@ -315,6 +315,12 @@ public class Tela2 extends javax.swing.JFrame {
         outputLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         outputLabel.setText("Output Message");
 
+        terminalTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                terminalTextFieldKeyTyped(evt);
+            }
+        });
+
         enterTerminalButton.setText("Enter");
         enterTerminalButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -517,13 +523,23 @@ public class Tela2 extends javax.swing.JFrame {
     }//GEN-LAST:event_resetButtonActionPerformed
 
     private void enterTerminalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterTerminalButtonActionPerformed
-        // TODO add your handling code here:
+        emulador.inputStream.add(Integer.parseInt(terminalTextField.getText()));
+        emulador.outputStream=terminalTextField.getText();
+        emulador.step();
     }//GEN-LAST:event_enterTerminalButtonActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         memoryJList.ensureIndexIsVisible(Integer.parseInt(localizarField.getText()));
+        localizarField.setText("");
 
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void terminalTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_terminalTextFieldKeyTyped
+        char enter = evt.getKeyChar();
+        if(!(Character.isDigit(enter))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_terminalTextFieldKeyTyped
 
     /**
      * @param args the command line arguments
@@ -578,7 +594,8 @@ public class Tela2 extends javax.swing.JFrame {
         listRegisterModel.addElement("CS: "+ String.format("0x%08X",emulador.CS));
         listRegisterModel.addElement("SS: "+ String.format("0x%08X",emulador.SS));
         registersList.setModel(listRegisterModel);
-
+        
+        outputLabel.setText(emulador.outputStream!=null ? emulador.outputStream : "Output Message...");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
