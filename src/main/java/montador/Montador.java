@@ -28,10 +28,12 @@ public class Montador {
     public  List<SimbolosUsados> tabelaDeSimbolosUsados = new ArrayList<SimbolosUsados>();
     public List<String> instrucoes = new ArrayList<String>();
     public List<Integer> data = new ArrayList<Integer>();
-    private Memory memory = new Memory();
+    private Memory vetorTest = new Memory();
     private int programCounter = 0; // Marca a posição da instrução corrente
     private int dataCounter = 0; // Marca tamanho do segmento de dados, cada variavel e const 2 bytes
     private int sizeHeader = 4;
+    private final int CS = 1000;
+    private final int DS = 3000;
     
     public Montador(){
         
@@ -71,16 +73,16 @@ public class Montador {
                 String label = instrucao.split(":")[0];
                 instrucao = instrucao.split(":")[1];
                 instrucao = instrucao.trim();
-                tabelaDeSimbolosLocais.put(label, new SimbolosLocais(Integer.toString(programCounter), true, true));
+                tabelaDeSimbolosLocais.put(label, new SimbolosLocais(Integer.toString(programCounter), true, true, "l"));
             }
             
-            if(instrucao.matches(".*add AX,AX")){
+            if(instrucao.matches("add AX,.*AX")){
                
                 codigoIntermediario += "0x03C0" + "\n";
                 programCounter += 2; 
             }
             
-            else if(instrucao.matches(".*add AX,DX")){
+            else if(instrucao.matches("add AX,.*DX")){
                 codigoIntermediario += "0x03C2" + "\n";
                 programCounter += 2; 
                 //updateMemoria(0x03C2, controle_mem++);
@@ -92,7 +94,6 @@ public class Montador {
                System.out.println("Testando const 1. Nome: " + opd);
                 if(!(tabelaDeSimbolosLocais.get(opd).isRelocable())){  // Verifica se é uma constante
                     codigoIntermediario += tabelaDeSimbolosLocais.get(opd).getValue() + "\n";
-                    //codigoIntermediario += "00" + "\n"; 
                 }else{
                     codigoIntermediario += "0000" + "\n";
                     
@@ -101,19 +102,19 @@ public class Montador {
                 
                 programCounter = programCounter + 3;  
                 
-            }else if(instrucao.matches("div SI")){
+            }else if(instrucao.matches("div .*SI")){
                 codigoIntermediario += "0xf7f6" + "\n";
                 programCounter += 2; 
                 
-            }else if(instrucao.matches("div AX")){
+            }else if(instrucao.matches("div .*AX")){
                 codigoIntermediario += "0xf7c0" + "\n";
                 programCounter += 2; 
                 
-            }else if(instrucao.matches("sub AX,AX")){
+            }else if(instrucao.matches("sub AX,.*AX")){
                 codigoIntermediario += "0x2bc0" + "\n";
                 programCounter += 2; 
                 
-            }else if(instrucao.matches("sub AX,DX")){
+            }else if(instrucao.matches("sub AX,.*DX")){
                 codigoIntermediario += "0x2bc2" + "\n";
                 programCounter += 2; 
   
@@ -129,15 +130,15 @@ public class Montador {
                 }
                 programCounter = programCounter + 3; 
             
-            }else if(instrucao.matches("mul SI")){
+            }else if(instrucao.matches("mul .*SI")){
                 codigoIntermediario += "0xf6f7" + "\n";
                 programCounter += 2; 
                 
-            }else if(instrucao.matches("mul AX")){
+            }else if(instrucao.matches("mul .*AX")){
                 codigoIntermediario += "0xf7f0" + "\n";
                 programCounter += 2; 
                 
-            }else if(instrucao.matches("cmp AX,DX")){
+            }else if(instrucao.matches("cmp AX,.*DX")){
                 codigoIntermediario += "0x3BC2" + "\n";
                 programCounter += 2; 
                 
@@ -154,11 +155,11 @@ public class Montador {
                 }
                 programCounter = programCounter + 3;  
 
-            }else if(instrucao.matches("and AX,DX")){
+            }else if(instrucao.matches("and AX,.*DX")){
                 codigoIntermediario += "0xf7C2" + "\n";
                 programCounter += 2; 
   
-            }else if(instrucao.matches("and AX,")){
+            }else if(instrucao.matches("and AX,.*")){
                 codigoIntermediario += "0x25";
                 String opd = instrucao.split("AX,")[1];
                 opd = opd.trim();
@@ -170,33 +171,22 @@ public class Montador {
                 }
                 programCounter = programCounter + 3; 
                 
-            }else if(instrucao.matches("not AX")){
+            }else if(instrucao.matches("not .*AX")){
                 codigoIntermediario += "0xF8C0" + "\n";
                 programCounter += 2; 
                 
-            }else if(instrucao.matches("xor AX,AX")){
+            }else if(instrucao.matches("xor AX,.*AX")){
                 codigoIntermediario += "0x33C0" + "\n";
                 programCounter += 2; 
 
-            }else if(instrucao.matches("xor AX,DX")){
+            }else if(instrucao.matches("xor AX,.*DX")){
                 codigoIntermediario += "0x33C2" + "\n";
                 programCounter += 2; 
  
-            }else if(instrucao.matches(".*xor AX,.*")){
+            }else if(instrucao.matches("xor AX,.*")){
                 codigoIntermediario += "0x35";
                 String opd = instrucao.split("AX,")[1];
                 opd = opd.trim();
-                
-                //String label = instrucao.split("AX,")[0];
-                /*if(label.contains("")){
-                    
-                }else if(label.contains(":")){
-                    label = label.split(":")[0];
-                    tabelaDeSimbolosLocais.put(label, new SimbolosLocais(Integer.toString(programCounter), true, true));
-                }
-                else{
-                    System.out.println("Erro, label deve possuir ':' depois da declaracao");
-                }*/
                 
                 if(!(tabelaDeSimbolosLocais.get(opd).isRelocable())){  // Verifica se é uma constante
                     codigoIntermediario += tabelaDeSimbolosLocais.get(opd).getValue() + "\n";
@@ -206,11 +196,11 @@ public class Montador {
                 }
                 programCounter = programCounter + 3; 
 
-            }else if(instrucao.matches("or AX,AX")){
+            }else if(instrucao.matches("or AX,.*AX")){
                 codigoIntermediario += "0x0BC0" + "\n";
                 programCounter += 2; 
                 
-            }else if(instrucao.matches("or AX,DX")){
+            }else if(instrucao.matches("or AX,.*DX")){
                 codigoIntermediario += "0x0BC2" + "\n";
                 programCounter += 2; 
 
@@ -226,7 +216,7 @@ public class Montador {
                 }
                 programCounter = programCounter + 3;  
 
-            }else if(instrucao.matches("jmp")){
+            }else if(instrucao.matches("jmp.*")){
                 codigoIntermediario += "0xEB";
                 String opd = instrucao.split("jmp")[1];
                 opd = opd.trim();
@@ -238,7 +228,7 @@ public class Montador {
                 }
                 programCounter += 3;    
             
-            }else if(instrucao.matches("jz")){
+            }else if(instrucao.matches("jz.*")){
                 codigoIntermediario += "0x74";
                 String opd = instrucao.split("jz")[1];
                 opd = opd.trim();
@@ -250,7 +240,7 @@ public class Montador {
                 }
                 programCounter += 3; 
                 
-            }else if(instrucao.matches("jnz")){
+            }else if(instrucao.matches("jnz.*")){
                 codigoIntermediario += "0x75";
                 String opd = instrucao.split("jnz")[1];
                 opd = opd.trim();
@@ -262,7 +252,7 @@ public class Montador {
                 }
                 programCounter += 3; 
             
-            }else if(instrucao.matches("jp")){
+            }else if(instrucao.matches("jp.*")){
                 codigoIntermediario += "0x7A";
                 String opd = instrucao.split("jp")[1];
                 opd = opd.trim();
@@ -274,7 +264,7 @@ public class Montador {
                 }
                 programCounter += 3; 
             
-            }else if(instrucao.matches("call")){
+            }else if(instrucao.matches("call.*")){
                 codigoIntermediario += "0xE8";
                 String opd = instrucao.split("call")[1];
                 opd = opd.trim();
@@ -286,19 +276,19 @@ public class Montador {
                 }
                 programCounter += 3; 
             
-            }else if(instrucao.matches("ret")){
+            }else if(instrucao.matches("ret.*")){
                 codigoIntermediario += "0xEF" + "\n";
                 programCounter += 1; 
             
-            }else if(instrucao.matches("hlt")){
+            }else if(instrucao.matches("hlt.*")){
                 codigoIntermediario += "0xEE" + "\n";
                 programCounter += 1; 
                 
-            }else if(instrucao.matches("pop AX")){
+            }else if(instrucao.matches("pop .*AX")){
                 codigoIntermediario += "0x58C0" + "\n";
                 programCounter += 2; 
                 
-            }else if(instrucao.matches("pop DX")){
+            }else if(instrucao.matches("pop .*DX")){
                 codigoIntermediario += "0x58C2" + "\n";
                 programCounter += 2; 
             
@@ -306,7 +296,7 @@ public class Montador {
                 codigoIntermediario += "0x9C" + "\n";
                 programCounter += 1; 
                 
-            }else if(instrucao.matches("pop ")){
+            }else if(instrucao.matches("pop .*")){
                 codigoIntermediario += "0x58";
                 String opd = instrucao.split("pop")[1];
                 opd = opd.trim();
@@ -318,23 +308,23 @@ public class Montador {
                 }
                 programCounter += 3; 
                 
-            }else if(instrucao.matches("push AX")){
+            }else if(instrucao.matches("push .*AX")){
                 codigoIntermediario += "0x50C0" + "\n";
                 programCounter += 2; 
                 
-            }else if(instrucao.matches("push DX")){
+            }else if(instrucao.matches("push .*DX")){
                 codigoIntermediario += "0x50C2" + "\n";
                 programCounter += 2; 
                 
-            }else if(instrucao.matches("pushf")){
+            }else if(instrucao.matches("pushf.*")){
                 codigoIntermediario += "0x9C" + "\n";
                 programCounter += 1; 
                 
-            }else if(instrucao.matches("store AX")){
+            }else if(instrucao.matches("store .*AX")){
                 codigoIntermediario += "0x07C0" + "\n";
                 programCounter += 2; 
                 
-            }else if(instrucao.matches("store DX")){
+            }else if(instrucao.matches("store .*DX")){
                 codigoIntermediario += "0x07C2" + "\n";
                 programCounter += 2; 
             
@@ -350,19 +340,19 @@ public class Montador {
                 }
                 programCounter += 3;     
             
-            }else if(instrucao.matches("move AX,DX")){
+            }else if(instrucao.matches("move AX,.*DX")){
                 codigoIntermediario += "0x8BC2" + "\n";
-                programCounter += 3; 
+                programCounter += 2; 
             
-            }else if(instrucao.matches("move DX,AX")){
+            }else if(instrucao.matches("move DX,.*AX")){
                 codigoIntermediario += "0x8BD0" + "\n";
-                programCounter += 3; 
+                programCounter += 2; 
             
             }else if(instrucao.matches("move AX,.*")){
                 codigoIntermediario += "0xA1";
                 String opd = instrucao.split("AX,")[1];
                 opd = opd.trim();
-                System.out.println("Mov Ax instru = " + instrucao);
+                //System.out.println("Mov Ax instru = " + instrucao);
 
                 if(!(tabelaDeSimbolosLocais.get(opd).isRelocable())){  // Verifica se é uma constante
                     codigoIntermediario += tabelaDeSimbolosLocais.get(opd).getValue() + "\n";
@@ -372,10 +362,12 @@ public class Montador {
                 }
                 programCounter += 3;     
             
-            }else if(instrucao.matches("move .*,AX")){
+            }else if(instrucao.matches("move .*,.*AX")){
                 codigoIntermediario += "0xA3";
-                String opd = instrucao.split("AX,")[1];
+                String opd = instrucao.split(",")[0];
+                opd = opd.split("move")[1];
                 opd = opd.trim();
+                //System.out.println("Mov Ax instru = " + instrucao);
                 if(!(tabelaDeSimbolosLocais.get(opd).isRelocable())){  // Verifica se é uma constante
                     codigoIntermediario += tabelaDeSimbolosLocais.get(opd).getValue() + "\n";
                 }else{
@@ -395,19 +387,19 @@ public class Montador {
                         String firstPart = value.substring(0, 2);
                         String secondPart = value.substring(2, 4);
                         value = secondPart + firstPart;
-                        tabelaDeSimbolosLocais.put(opd, new SimbolosLocais(value, dataCounter, true, true)); // Valor, posição, recolavel, definicao
+                        tabelaDeSimbolosLocais.put(opd, new SimbolosLocais(value, dataCounter, true, true, "v")); // Valor, posição, recolavel, definicao
                         data.add((Integer.parseInt(secondPart))); // preparar dw para receber qualquer base numerica
                         data.add((Integer.parseInt(firstPart)));
                     }
                     else if(value.length() == 2){  // Caso Variavel tenha 2 bytes
-                        tabelaDeSimbolosLocais.put(opd, new SimbolosLocais(value, dataCounter, true, true)); // Valor, posição, recolavel, definicao
+                        tabelaDeSimbolosLocais.put(opd, new SimbolosLocais(value, dataCounter, true, true, "v")); // Valor, posição, recolavel, definicao
                         data.add((0)); // preparar dw para receber qualquer base numerica
                     }else{
                         System.out.println("Size of bytes not accepted ");
                     }
                    
                 }catch(ArrayIndexOutOfBoundsException e){
-                    tabelaDeSimbolosLocais.put(opd, new SimbolosLocais(true, true)); // Valor não inicializado
+                    tabelaDeSimbolosLocais.put(opd, new SimbolosLocais(true, true, "v")); // Valor não inicializado
                     data.add((0));
                     data.add((0));
                 }
@@ -433,13 +425,13 @@ public class Montador {
                     String secondPart = instrucao.substring(2, 4);
                     value = secondPart + firstPart;
                 }
-                tabelaDeSimbolosLocais.put(opd, new SimbolosLocais(value, false, true));
+                tabelaDeSimbolosLocais.put(opd, new SimbolosLocais(value, false, true, "c"));
                  
             }else if(instrucao.matches(".*PROC.*")){
                 String label = instrucao.split("PROC")[0];
                 label = label.trim();
                 
-                tabelaDeSimbolosLocais.put(label, new SimbolosLocais(label, true, true));
+                tabelaDeSimbolosLocais.put(label, new SimbolosLocais(label, true, true, "l"));
                 
             }
             else if(instrucao.matches("")){
@@ -499,13 +491,13 @@ public class Montador {
             for(String list: codeAux){ // Carrega intruções
                 list = "0x"+list;
                 int inst = Integer.decode(list);
-                memory.setPalavra(inst, i);
+                vetorTest.setPalavra(inst, i);
                 i++;
             }
             i = 3000;
             for(Integer datas: data){ // Carrega dados
             
-                memory.setPalavra(datas, i);
+                vetorTest.setPalavra(datas, i);
                 i++;
             }
             i = 0;
@@ -514,7 +506,26 @@ public class Montador {
             for(SimbolosUsados usados : tabelaDeSimbolosUsados){  
                 int position = usados.getOcorrencia();
                 String symbol = usados.getName();
-                int adressOfSymbol = tabelaDeSimbolosLocais.get(symbol).getPosition(); 
+                int adressOfSymbol;
+                if((tabelaDeSimbolosLocais.get(symbol).getType()).equals("l")){ // Verifica se é uma label ou uma variavel
+                  adressOfSymbol = tabelaDeSimbolosLocais.get(symbol).getPosition() + CS;  
+                }else{
+                  adressOfSymbol = tabelaDeSimbolosLocais.get(symbol).getPosition() + DS;  
+                }
+                
+                if(adressOfSymbol<256){ // Para valor de hexa que ocupa 1 byte, ex: a e aa
+                   codeAux.set(position, Integer.toHexString(adressOfSymbol)); 
+                }
+                else if(adressOfSymbol<65.536){ // Para valor de hexa que ocupa 2 byte, ex: aaf ou aaff
+                   String adress  = Integer.toHexString(adressOfSymbol);
+                   String adressPart1 = adress.substring(0, 2);
+                   String adressPart2 = adress.substring(2);
+                   codeAux.set(position, adressPart1); 
+                   codeAux.set(position + 1, adressPart2);
+                }
+                else if(adressOfSymbol>65.536){ // Para valor de hexa que ocupa 2 byte, ex: aaaa
+                   System.out.println("Adress size not supported");
+                }
                 codeAux.set(position, Integer.toString(adressOfSymbol));
             }
 
@@ -538,7 +549,7 @@ public class Montador {
             finalCode += list + "\n";
         }
 
-        print_memory();
+        print_vetorTest();
         writeSecondPassInFile(finalCode);
  
     }
@@ -600,19 +611,19 @@ public class Montador {
 
         }               
     }
-    public  void print_memory() {  // Printa simbolos (variaveis e constantes) na tabela de simbolos com seus valores
+    public  void print_vetorTest() {  // Printa simbolos (variaveis e constantes) na tabela de simbolos com seus valores
      
         System.out.println("\n\nData here");
         for (int i = 3000; i < (3000 + dataCounter); i++){
             
-            System.out.println(memory.getPalavra(i));
+            System.out.println(vetorTest.getPalavra(i));
             //Tela2.symbolTableModel.addElement(keys + " | " + tabelaDeSimbolosLocais.get(keys).getValue() +  " | " +  tabelaDeSimbolosLocais.get(keys).isRelocable() +  " | "  + tabelaDeSimbolosLocais.get(keys).isDefinited());
 
         } 
         System.out.println("\nInstructions here");
         for (int i = 1000; i < (1000 + programCounter); i++){
             
-            System.out.println(memory.getPalavra(i));
+            System.out.println(vetorTest.getPalavra(i));
             //Tela2.symbolTableModel.addElement(keys + " | " + tabelaDeSimbolosLocais.get(keys).getValue() +  " | " +  tabelaDeSimbolosLocais.get(keys).isRelocable() +  " | "  + tabelaDeSimbolosLocais.get(keys).isDefinited());
 
         } 

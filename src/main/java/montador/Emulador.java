@@ -89,9 +89,11 @@ public class Emulador {
         if(finished) return;
         
         int instruction = Tela2.memory.getPalavra(CS+IP++);
+        
         switch((int)instruction){
             case 0x03c0:// add ax
                 AX += AX;
+                
             break;
             case 0x03c2:// add dx
                 AX += DX;

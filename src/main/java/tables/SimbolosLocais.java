@@ -14,25 +14,29 @@ public class SimbolosLocais {
     private String value;
     private boolean definition;
     private int position;
+    private String type; // v para variavel, l para label, c para constante
     
     public SimbolosLocais(){
         
     }
     
-    public SimbolosLocais(String value, boolean relocable, boolean definition) {
+    public SimbolosLocais(String value, boolean relocable, boolean definition, String type) {
+        this.type = type;
         this.relocable = relocable;
         this.value = value;
         this.definition = definition;
         this.position = 0;
     }
-    public SimbolosLocais(boolean relocable, boolean definition) {
+    public SimbolosLocais(boolean relocable, boolean definition, String type) {
+        this.type = type;
         this.relocable = relocable;
         this.value = "00";
         this.definition = definition;
         this.position = 0;
     }
     
-    public SimbolosLocais(String value, int position, boolean relocable, boolean definition) {
+    public SimbolosLocais(String value, int position, boolean relocable, boolean definition, String type) {
+        this.type = type;
         this.relocable = relocable;
         this.value = value;
         this.definition = definition;
@@ -68,6 +72,14 @@ public class SimbolosLocais {
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
     
     

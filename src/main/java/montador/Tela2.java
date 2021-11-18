@@ -56,7 +56,7 @@ public class Tela2 extends javax.swing.JFrame {
         memoryJList = new javax.swing.JList<>();
         localizarField = new javax.swing.JTextField();
         localizarLabel = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        localizaMemoryButton = new javax.swing.JButton();
         symbolTablePanel = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jListSimbolos = new javax.swing.JList<>();
@@ -161,12 +161,7 @@ public class Tela2 extends javax.swing.JFrame {
 
         localizarLabel.setText("Find Memory");
 
-        jButton1.setText("Enter");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
+        localizaMemoryButton.setText("Enter");
 
         javax.swing.GroupLayout memoryPanelLayout = new javax.swing.GroupLayout(memoryPanel);
         memoryPanel.setLayout(memoryPanelLayout);
@@ -179,7 +174,7 @@ public class Tela2 extends javax.swing.JFrame {
                     .addGroup(memoryPanelLayout.createSequentialGroup()
                         .addComponent(localizarField, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addComponent(localizaMemoryButton))
                     .addComponent(localizarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(memoryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(15, Short.MAX_VALUE))
@@ -196,7 +191,7 @@ public class Tela2 extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(memoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(localizarField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(localizaMemoryButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -304,7 +299,7 @@ public class Tela2 extends javax.swing.JFrame {
                     .addComponent(runAllButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(runStepButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(resetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, Short.MAX_VALUE)
+                .addComponent(resetButton, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -314,12 +309,6 @@ public class Tela2 extends javax.swing.JFrame {
         outputLabel.setForeground(new java.awt.Color(255, 255, 255));
         outputLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         outputLabel.setText("Output Message");
-
-        terminalTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                terminalTextFieldKeyTyped(evt);
-            }
-        });
 
         enterTerminalButton.setText("Enter");
         enterTerminalButton.addActionListener(new java.awt.event.ActionListener() {
@@ -458,7 +447,7 @@ public class Tela2 extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(Tela2.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.updateInterface();
+        //this.updateInterface();
     }//GEN-LAST:event_carregarArquivoButtonActionPerformed
 
     private void assembleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assembleButtonActionPerformed
@@ -494,7 +483,7 @@ public class Tela2 extends javax.swing.JFrame {
         } catch(IOException e){ 
             System.out.println("Erro 404: " + e.getMessage());
         } 
-        this.updateInterface();
+        //this.updateInterface();
     }//GEN-LAST:event_assembleButtonActionPerformed
 
     private void localizarFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_localizarFieldActionPerformed
@@ -604,7 +593,6 @@ public class Tela2 extends javax.swing.JFrame {
     private javax.swing.JLabel codigoFonteLabel2;
     private javax.swing.JButton enterTerminalButton;
     private javax.swing.JPanel executePanel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JList<String> jListSimbolos;
@@ -616,6 +604,7 @@ public class Tela2 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTextArea jTextArea;
     private javax.swing.JButton loadButton;
+    private javax.swing.JButton localizaMemoryButton;
     private javax.swing.JTextField localizarField;
     private javax.swing.JLabel localizarLabel;
     private javax.swing.JPanel mainPanel;

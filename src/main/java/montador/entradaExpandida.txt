@@ -1,8 +1,10 @@
 
-space DW
-var DW 0011
+um DW 0001
+nove DW 0009
+result DW
 
-const EQU 0010
-
-move AX, var
-add AX, const
+move AX, um
+move DX, AX
+move AX, nove
+add AX, DX
+move result, AX

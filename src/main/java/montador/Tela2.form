@@ -216,7 +216,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="localizarField" min="-2" pref="146" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              <Component id="localizaMemoryButton" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="localizarLabel" alignment="0" min="-2" pref="122" max="-2" attributes="0"/>
                           <Component id="memoryLabel" alignment="0" max="32767" attributes="0"/>
@@ -237,7 +237,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="localizarField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="localizaMemoryButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -294,7 +294,7 @@
                 <Property name="text" type="java.lang.String" value="Find Memory"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="localizaMemoryButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Enter"/>
               </Properties>
