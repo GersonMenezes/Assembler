@@ -300,7 +300,7 @@ public class Emulador {
 
     public void input (String input){
         this.inputStream.add(Integer.parseInt(input));
-        this.outputStream = Util.convertIntegerToBinary(Short.parseShort(input));
+        this.outputStream = input;
         int instruction = Tela2.memory.getPalavra(CS+IP);
         if(instruction==0x12) step();
     }

@@ -523,9 +523,8 @@ public class Tela2 extends javax.swing.JFrame {
     }//GEN-LAST:event_resetButtonActionPerformed
 
     private void enterTerminalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterTerminalButtonActionPerformed
-        emulador.inputStream.add(Integer.parseInt(terminalTextField.getText()));
-        emulador.outputStream=terminalTextField.getText();
-        emulador.step();
+        emulador.input(terminalTextField.getText());
+        updateInterface();
     }//GEN-LAST:event_enterTerminalButtonActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
