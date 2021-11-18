@@ -1,27 +1,8 @@
 
-var1 DW 11
-var2 DW 22
-var3 DW 33
-var4 DW 44
-const1 EQU 55
-const2 EQU 66
-const3 EQU 77
-label DW 88
+space DW
+var DW 0011
 
+const EQU 10
 
-or AX,const1
-xor AX,const2
-read const3
-
-
-add AX,var1
-sub AX,var2
-cmp AX,var3
-and AX,var4
-jmp label
-jz label
-jnz label
-jp label
-call label
-pop label
-hlt
+move AX, var
+add AX, const

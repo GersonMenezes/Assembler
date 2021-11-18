@@ -23,7 +23,13 @@ public class SimbolosLocais {
         this.relocable = relocable;
         this.value = value;
         this.definition = definition;
-        this.position = position;
+        this.position = 0;
+    }
+    public SimbolosLocais(boolean relocable, boolean definition) {
+        this.relocable = relocable;
+        this.value = "00";
+        this.definition = definition;
+        this.position = 0;
     }
     
     public SimbolosLocais(String value, int position, boolean relocable, boolean definition) {
