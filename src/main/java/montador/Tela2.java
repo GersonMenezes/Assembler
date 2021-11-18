@@ -21,7 +21,6 @@ public class Tela2 extends javax.swing.JFrame {
     public static String ArquivoCarregado = new String("") ;
     protected static DefaultListModel<String> listMemoryModel = new DefaultListModel<>();
     protected static DefaultListModel<String> symbolTableModel = new DefaultListModel<>();
-    protected static DefaultListModel<String> listRegisterModel = new DefaultListModel<>();
     private Montador montador = new Montador();
     public static Memory memory = new Memory();
     public Emulador emulador = new Emulador();
@@ -31,7 +30,7 @@ public class Tela2 extends javax.swing.JFrame {
      */
     public Tela2() {
         initComponents();
-        registersList.setModel(listRegisterModel);
+        updateInterface();
     }
 
     /**
@@ -163,6 +162,11 @@ public class Tela2 extends javax.swing.JFrame {
         localizarLabel.setText("Find Memory");
 
         jButton1.setText("Enter");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout memoryPanelLayout = new javax.swing.GroupLayout(memoryPanel);
         memoryPanel.setLayout(memoryPanelLayout);
@@ -448,6 +452,7 @@ public class Tela2 extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(Tela2.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.updateInterface();
     }//GEN-LAST:event_carregarArquivoButtonActionPerformed
 
     private void assembleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assembleButtonActionPerformed
@@ -483,31 +488,42 @@ public class Tela2 extends javax.swing.JFrame {
         } catch(IOException e){ 
             System.out.println("Erro 404: " + e.getMessage());
         } 
+        this.updateInterface();
     }//GEN-LAST:event_assembleButtonActionPerformed
 
     private void localizarFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_localizarFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_localizarFieldActionPerformed
 
+
     private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButtonActionPerformed
-        memoryJList.setModel(listMemoryModel);
+        this.updateInterface();
     }//GEN-LAST:event_loadButtonActionPerformed
 
     private void runStepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runStepButtonActionPerformed
         emulador.step();
+        this.updateInterface();
+        memoryJList.ensureIndexIsVisible(emulador.IP);
     }//GEN-LAST:event_runStepButtonActionPerformed
 
     private void runAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runAllButtonActionPerformed
         emulador.run();
+        this.updateInterface();
     }//GEN-LAST:event_runAllButtonActionPerformed
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
         emulador.reset();
+        this.updateInterface();
     }//GEN-LAST:event_resetButtonActionPerformed
 
     private void enterTerminalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterTerminalButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_enterTerminalButtonActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        memoryJList.ensureIndexIsVisible(Integer.parseInt(localizarField.getText()));
+
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -542,6 +558,27 @@ public class Tela2 extends javax.swing.JFrame {
                 new Tela2().setVisible(true);
             }
         });
+    }
+
+    private void updateInterface(){
+        DefaultListModel<String> memoryModel = new DefaultListModel<>();
+        for(int i = 0;i<8192;i++){
+            memoryModel.addElement(String.format("%04d", i)+" - "+String.format("0x%08X", memory.getPalavra(i)));
+        }
+        memoryJList.setModel(memoryModel);
+
+        DefaultListModel<String> listRegisterModel = new DefaultListModel<>();
+        listRegisterModel.addElement("AX: "+ String.format("0x%08X",emulador.AX));
+        listRegisterModel.addElement("DX: "+ String.format("0x%08X",emulador.DX));
+        listRegisterModel.addElement("SP: "+ String.format("0x%08X",emulador.SP));
+        listRegisterModel.addElement("SI: "+ String.format("0x%08X",emulador.SI));
+        listRegisterModel.addElement("IP: "+ String.format("0x%08X",emulador.IP));
+        listRegisterModel.addElement("SR: "+ String.format("0x%08X",emulador.SR));
+        listRegisterModel.addElement("DS: "+ String.format("0x%08X",emulador.DS));
+        listRegisterModel.addElement("CS: "+ String.format("0x%08X",emulador.CS));
+        listRegisterModel.addElement("SS: "+ String.format("0x%08X",emulador.SS));
+        registersList.setModel(listRegisterModel);
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

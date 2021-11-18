@@ -16,7 +16,7 @@ public class Emulador {
     public int DX = 0;
     public int SP = 0;
     public int SI = 0;
-    public int IP = 0;
+    public int IP = 1000;
     public int SR = 0;
     public int DS = 3000;
     public int CS = 1000;
@@ -239,42 +239,6 @@ public class Emulador {
         }
     }
     
-    private int getRegister(String reg){
-        switch(reg){
-            case "AX":
-            return AX;
-            case "DX":
-            return DX;
-            case "SP":
-            return SP;
-            case "SI":
-            return SI;
-            case "IP":
-            return IP;
-            case "SR":
-            return SR;
-            default: 
-            return 0;
-        }
-    }
-    private int setRegister(String reg, int value){
-        switch(reg){
-            case "AX":
-            return AX = value;
-            case "DX":
-            return DX = value;
-            case "SP":
-            return SP = value;
-            case "SI":
-            return SI = value;
-            case "IP":
-            return IP = value;
-            case "SR":
-            return SR = value;
-            default: 
-            return 0;
-        }
-    }
     
     public boolean getFlag(String flag){
         switch(flag){
@@ -341,18 +305,4 @@ public class Emulador {
         if(instruction==0x12) step();
     }
     
-    public void updateRegister(){
-        
-       
-            Tela2.listRegisterModel.setElementAt("AX: " + AX, 0); 
-            Tela2.listRegisterModel.setElementAt("DX: " + DX, 1); 
-            Tela2.listRegisterModel.setElementAt("SP: " + SP, 2); 
-            Tela2.listRegisterModel.setElementAt("SI: " + SI, 3); 
-            Tela2.listRegisterModel.setElementAt("IP: " + IP, 4); 
-            Tela2.listRegisterModel.setElementAt("SR: " + SR, 5); 
-            Tela2.listRegisterModel.setElementAt("DS: " + DS, 6); 
-            Tela2.listRegisterModel.setElementAt("CS: " + CS, 7); 
-            Tela2.listRegisterModel.setElementAt("SS: " + SS, 8); 
-            
-    }  
 }
