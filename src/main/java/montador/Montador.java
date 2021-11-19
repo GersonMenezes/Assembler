@@ -459,6 +459,7 @@ public class Montador {
         // Pega instruções do primeiro passo de montagem e coloca num Array
         for (int i = 0; i< instrucoes.size(); i++){
             String instrucao = instrucoes.get(i);
+            System.out.println("Erro " + instrucao);
             instrucao = instrucao.split("0x")[1];
             
             int stringLength = instrucao.length();

@@ -1,10 +1,36 @@
-
 /* Conteúdo do código objeto
-// Cabeçalho: Tamanho do arquivo, tamanho do cabeçalho, tamanho dos dados, tamanho das instruções
+// Cabeçalho:, tamanho do cabeçalho, tamanho dos dados, tamanho das instruções
 // Dados
 // Intruções
+
+
+e  Tamanho do arquivo
+4  tamanho dos dados
+4  qtd de instruções
+6  qtd de dados
+0
+0
+9
+0
+A1
+2
+00
+05
+10
+00
 */
 package montador;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -12,14 +38,76 @@ package montador;
  */
 public class Carregador {
     
-    // Tela2.memory.setPalavra(data, position);
     
-    public Carregador(String caminho){
-        loadMemory();
+    public List<String> CodigoObjeto = new ArrayList<String>();
+
+    
+    public Carregador(){
+        loadCodigo_Obj();    
     }
     
+    public void loadCodigo_Obj() {
+                                                        
+            
+
+            
+        try {
+            String CaminhoDoArquivo = new String(System.getProperty("user.dir")+"/src/main/java/montador/codigo_objeto.txt");
+            CodigoObjeto = Files.readAllLines(Paths.get(CaminhoDoArquivo));
+               
+            //System.out.println("PRINTANDO" + CodigoObjeto.toString());
+        } 
+        catch (IOException ex) {
+            Logger.getLogger(Carregador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+    }
+    
+    
+     public Emulador loadMemory(Emulador emulador){
+         
+         int qtd_instruções = Integer.parseInt(CodigoObjeto.get(2),16);
+         int qtd_dados = Integer.parseInt(CodigoObjeto.get(3),16);
+         int posDados = 3000;
+         int posInstrucoes = 1000;
+         int posicao = 4;
+
+          
+         for (int i =0; i<qtd_dados; i++){
+             int valor = Integer.parseInt(CodigoObjeto.get(posicao).trim(),16);
+             
+             Tela2.memory.setPalavra(valor, posDados++);  
+       
+             posicao++;
+         }
+         
+         
+         for (int i =0; i<qtd_instruções; i++){
+             int valor = Integer.parseInt(CodigoObjeto.get(posicao).trim(),16);
+             Tela2.memory.setPalavra(valor, posInstrucoes++);
+             posicao++;
+         }
+            
+
+         
+         emulador.DS = posDados;
+         emulador.CS = posInstrucoes;
+         
+         
+         
+         
+         
+         return emulador;
+
+     }
+    
+    
+    
+    
+    /*
     public void loadMemory(){
         
+        /*
         // Dados inicializados
         Tela2.memory.setPalavra(1, 3000);
         Tela2.memory.setPalavra(9, 3001);
@@ -45,4 +133,5 @@ public class Carregador {
         Tela2.memory.setPalavra(0, 1012);
 
     }
+*/
 }

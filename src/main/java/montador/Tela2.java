@@ -24,6 +24,8 @@ public class Tela2 extends javax.swing.JFrame {
     private Montador montador = new Montador();
     public static Memory memory = new Memory();
     public Emulador emulador = new Emulador();
+    public static String modulo1text = new String();
+    public static String modulo2text = new String();
     //private Emulador emulador = new Emulador();
     /**
      * Creates new form Tela2
@@ -421,20 +423,31 @@ public class Tela2 extends javax.swing.JFrame {
         try {                                                      
             
             ProcessaMacro processador;
-            processador = new ProcessaMacro("entrada");
+            processador = new ProcessaMacro("modulo1Unexpanded", "modulo1");
+            processador.processa();
+            processador = new ProcessaMacro("modulo2Unexpanded", "modulo2");
             processador.processa();
             
             String linha = new String();
-            String CaminhoDoArquivo = new String(System.getProperty("user.dir")+"/src/main/java/montador/entradaExpandida.txt");
+            String CaminhoDoArquivo = new String(System.getProperty("user.dir")+"/src/main/java/arquivos_txt/modulo1.txt");
+            String CaminhoDoArquivo2 = new String(System.getProperty("user.dir")+"/src/main/java/arquivos_txt/modulo2.txt");
             BufferedReader buffRead; //reader do arquivo
+            BufferedReader buffRead2; //reader do arquivo
             
             try {
                 buffRead = new BufferedReader(new FileReader(CaminhoDoArquivo));
+                buffRead2 = new BufferedReader(new FileReader(CaminhoDoArquivo2));
                 
                 linha = buffRead.readLine();
                 while (linha!=null) {
                     ArquivoCarregado = ArquivoCarregado.concat(linha+"\n");
                     linha= buffRead.readLine();
+                }
+                linha = buffRead2.readLine();
+                while (linha!=null) {
+                    System.out.println("Estranho: " + linha);
+                    ArquivoCarregado = ArquivoCarregado.concat(linha+"\n");
+                    linha= buffRead2.readLine();
                 }
                 jTextArea.setText(ArquivoCarregado);
                 
@@ -459,19 +472,29 @@ public class Tela2 extends javax.swing.JFrame {
         }
         
         String linha = new String();
-        String CaminhoDoArquivo = new String(System.getProperty("user.dir")+"/src/main/java/montador/firstPass.txt");
-        BufferedReader buffRead; //reader do arquivo
-        ArquivoCarregado = "";
-    
+        String modulo1Text = new String(System.getProperty("user.dir")+"/src/main/java/arquivos_txt/modulo1.txt");
+        String modulo2Text = new String(System.getProperty("user.dir")+"/src/main/java/arquivos_txt/modulo2.txt");
+        BufferedReader buffRead1; //reader do arquivo
+        BufferedReader buffRead2; //reader do arquivo
+        ArquivoCarregado = ""; // reseta
+        
         try {
-            buffRead = new BufferedReader(new FileReader(CaminhoDoArquivo));
+            buffRead1 = new BufferedReader(new FileReader(modulo1Text));
+            buffRead2 = new BufferedReader(new FileReader(modulo2Text));
                   
-            linha = buffRead.readLine();
+            linha = buffRead1.readLine();
             while (linha!=null) {                
                 ArquivoCarregado = ArquivoCarregado.concat(linha+"\n");
-                linha = buffRead.readLine();
+                linha = buffRead1.readLine();
             }
-            buffRead.close();
+            buffRead1.close();
+            
+            linha = buffRead2.readLine();
+            while (linha!=null) {                
+                ArquivoCarregado = ArquivoCarregado.concat(linha+"\n");
+                linha = buffRead2.readLine();
+            }
+            buffRead2.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Tela2.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

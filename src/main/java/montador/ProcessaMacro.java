@@ -19,11 +19,11 @@ class ProcessaMacro {
     private FileWriter arqSaida;
 
     // Construtor
-    public ProcessaMacro(String input) throws FileNotFoundException, IOException{
+    public ProcessaMacro(String input, String output) throws FileNotFoundException, IOException{
         this.input = input;
         this.macros = new HashMap<String, Macro>();
-        this.bf = new BufferedReader(new FileReader(new String(System.getProperty("user.dir")+"/src/main/java/montador/" + input + ".txt")));
-        this.arqSaida = new FileWriter(new String(System.getProperty("user.dir")+"/src/main/java/montador/entradaExpandida.txt"));
+        this.bf = new BufferedReader(new FileReader(new String(System.getProperty("user.dir")+"/src/main/java/arquivos_txt/" + input + ".txt")));
+        this.arqSaida = new FileWriter(new String(System.getProperty("user.dir")+"/src/main/java/arquivos_txt/" + output+ ".txt"));
         // stringParametrosFormais[0] = "";
     }
 
