@@ -445,7 +445,6 @@ public class Tela2 extends javax.swing.JFrame {
                 }
                 linha = buffRead2.readLine();
                 while (linha!=null) {
-                    System.out.println("Estranho: " + linha);
                     ArquivoCarregado = ArquivoCarregado.concat(linha+"\n");
                     linha= buffRead2.readLine();
                 }
@@ -472,15 +471,15 @@ public class Tela2 extends javax.swing.JFrame {
         }
         
         String linha = new String();
-        String modulo1Text = new String(System.getProperty("user.dir")+"/src/main/java/arquivos_txt/modulo1.txt");
-        String modulo2Text = new String(System.getProperty("user.dir")+"/src/main/java/arquivos_txt/modulo2.txt");
+        String modulo1Text = new String(System.getProperty("user.dir")+"/src/main/java/arquivos_txt/firstPass.txt");
+        //String modulo2Text = new String(System.getProperty("user.dir")+"/src/main/java/arquivos_txt/modulo2.txt");
         BufferedReader buffRead1; //reader do arquivo
-        BufferedReader buffRead2; //reader do arquivo
+        //BufferedReader buffRead2; //reader do arquivo
         ArquivoCarregado = ""; // reseta
         
         try {
             buffRead1 = new BufferedReader(new FileReader(modulo1Text));
-            buffRead2 = new BufferedReader(new FileReader(modulo2Text));
+           // buffRead2 = new BufferedReader(new FileReader(modulo2Text));
                   
             linha = buffRead1.readLine();
             while (linha!=null) {                
@@ -489,12 +488,12 @@ public class Tela2 extends javax.swing.JFrame {
             }
             buffRead1.close();
             
-            linha = buffRead2.readLine();
+           /* linha = buffRead2.readLine();
             while (linha!=null) {                
                 ArquivoCarregado = ArquivoCarregado.concat(linha+"\n");
                 linha = buffRead2.readLine();
             }
-            buffRead2.close();
+            buffRead2.close();*/
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Tela2.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

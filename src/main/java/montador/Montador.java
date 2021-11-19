@@ -399,7 +399,7 @@ public class Montador {
                     }
                    
                 }catch(ArrayIndexOutOfBoundsException e){
-                    tabelaDeSimbolosLocais.put(opd, new SimbolosLocais(true, true, "v")); // Valor não inicializado
+                    tabelaDeSimbolosLocais.put(opd, new SimbolosLocais(dataCounter, true, true, "v")); // Valor não inicializado
                     data.add((0));
                     data.add((0));
                 }
@@ -457,9 +457,9 @@ public class Montador {
         String finalCode = new String();
         List<String> codeAux = new ArrayList<String>();
         // Pega instruções do primeiro passo de montagem e coloca num Array
+        System.out.println("Instruções: " + instrucoes);
         for (int i = 0; i< instrucoes.size(); i++){
             String instrucao = instrucoes.get(i);
-            System.out.println("Erro " + instrucao);
             instrucao = instrucao.split("0x")[1];
             
             int stringLength = instrucao.length();
@@ -517,14 +517,14 @@ public class Montador {
                 if(adressOfSymbol<256){ // Para valor de hexa que ocupa 1 byte, ex: a e aa
                    codeAux.set(position, Integer.toHexString(adressOfSymbol)); 
                 }
-                else if(adressOfSymbol<65.536){ // Para valor de hexa que ocupa 2 byte, ex: aaf ou aaff
+                else if(adressOfSymbol<65536){ // Para valor de hexa que ocupa 2 byte, ex: aaf ou aaff
                    String adress  = Integer.toHexString(adressOfSymbol);
                    String adressPart1 = adress.substring(0, 2);
                    String adressPart2 = adress.substring(2);
                    codeAux.set(position, adressPart1); 
                    codeAux.set(position + 1, adressPart2);
                 }
-                else if(adressOfSymbol>65.536){ // Para valor de hexa que ocupa 2 byte, ex: aaaa
+                else if(adressOfSymbol>65536){ // Para valor de hexa que ocupa 2 byte, ex: aaaa
                    System.out.println("Adress size not supported");
                 }
                 codeAux.set(position, Integer.toString(adressOfSymbol));
@@ -557,7 +557,7 @@ public class Montador {
 
     public  void writeFirstPassInFile(String string) throws IOException{ // Escreve primeira passada em um arquivo .txt e exibe na interface
 
-        FileWriter fw = new FileWriter(new File(new String(System.getProperty("user.dir")+"/src/main/java/montador/firstPass.txt")));
+        FileWriter fw = new FileWriter(new File(new String(System.getProperty("user.dir")+"/src/main/java/arquivos_txt/firstPass.txt")));
         fw.write(string);
         fw.close();
         
@@ -584,7 +584,7 @@ public class Montador {
         System.out.println("\nTabela de Simbolos locais\n");
         for (String keys : tabelaDeSimbolosLocais.keySet()){
  
-            System.out.println(keys + " = " + tabelaDeSimbolosLocais.get(keys).getValue() + " Position: " + tabelaDeSimbolosLocais.get(keys).getPosition());
+            System.out.println(keys + " = " + tabelaDeSimbolosLocais.get(keys).getValue() + " | Position: " + tabelaDeSimbolosLocais.get(keys).getPosition());
             Tela2.symbolTableModel.addElement(keys + " | " + tabelaDeSimbolosLocais.get(keys).getValue() +  " | " +  tabelaDeSimbolosLocais.get(keys).isRelocable() +  " | "  + tabelaDeSimbolosLocais.get(keys).isDefinited());
 
         }               
@@ -592,10 +592,10 @@ public class Montador {
     
     public  void print_simbolosUsados() {  // Printa simbolos (variaveis e constantes) na tabela de simbolos com seus valores
      
-        System.out.println("\nTabela de Simbolos usados: \n" + "Tamanho da Tabela: " + tabelaDeSimbolosUsados.size());
+        System.out.println("\nTabela de Simbolos usados: \n\n" + "Tamanho da Tabela: " + tabelaDeSimbolosUsados.size());
         for (SimbolosUsados simbolos : tabelaDeSimbolosUsados){
  
-            System.out.println(simbolos.getName() + " Adress of ocorrencia " + simbolos.getOcorrencia());
+            System.out.println(simbolos.getName() + " | Adress of ocorrencia: " + simbolos.getOcorrencia());
             //Tela2.symbolTableModel.addElement(keys + " | " + tabelaDeSimbolosLocais.get(keys).getValue() +  " | " +  tabelaDeSimbolosLocais.get(keys).isRelocable() +  " | "  + tabelaDeSimbolosLocais.get(keys).isDefinited());
 
         }               
