@@ -1,23 +1,8 @@
-/* Conteúdo do código objeto
+/* Conteúdo do código objeto. Cada linha é um byte
 // Cabeçalho:, tamanho do cabeçalho, tamanho dos dados, tamanho das instruções
-// Dados
-// Intruções
+// Segmento de Dados
+// Segmento de Intruções
 
-
-e  Tamanho do arquivo
-4  tamanho dos dados
-4  qtd de instruções
-6  qtd de dados
-0
-0
-9
-0
-A1
-2
-00
-05
-10
-00
 */
 package montador;
 
@@ -43,16 +28,13 @@ public class Carregador {
 
     
     public Carregador(){
-        loadCodigo_Obj();    
+          
     }
     
     public void loadCodigo_Obj() {
-                                                        
-            
-
-            
+                                                            
         try {
-            String CaminhoDoArquivo = new String(System.getProperty("user.dir")+"/src/main/java/montador/codigo_objeto.txt");
+            String CaminhoDoArquivo = new String(System.getProperty("user.dir")+"/src/main/java/arquivos_txt/codigo_objeto.txt");
             CodigoObjeto = Files.readAllLines(Paths.get(CaminhoDoArquivo));
                
             //System.out.println("PRINTANDO" + CodigoObjeto.toString());
@@ -60,11 +42,10 @@ public class Carregador {
         catch (IOException ex) {
             Logger.getLogger(Carregador.class.getName()).log(Level.SEVERE, null, ex);
         }
-                
+       loadMemory();         
     }
-    
-    
-     public Emulador loadMemory(Emulador emulador){
+
+     public void loadMemory(){
          
          int qtd_instruções = Integer.parseInt(CodigoObjeto.get(2),16);
          int qtd_dados = Integer.parseInt(CodigoObjeto.get(3),16);
@@ -80,30 +61,16 @@ public class Carregador {
        
              posicao++;
          }
-         
-         
+          
          for (int i =0; i<qtd_instruções; i++){
              int valor = Integer.parseInt(CodigoObjeto.get(posicao).trim(),16);
              Tela2.memory.setPalavra(valor, posInstrucoes++);
              posicao++;
          }
-            
-
-         
-         emulador.DS = posDados;
-         emulador.CS = posInstrucoes;
-         
-         
-         
-         
-         
-         return emulador;
 
      }
-    
-    
-    
-    
+
+} 
     /*
     public void loadMemory(){
         
@@ -134,4 +101,4 @@ public class Carregador {
 
     }
 */
-}
+

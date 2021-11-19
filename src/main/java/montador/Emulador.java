@@ -22,7 +22,10 @@ public class Emulador {
     public int CS = 1000;
     public int SS = 0;
     
-
+    public Emulador(){
+        
+    }
+    
     public void print(String word){
         System.out.println(word);
     }

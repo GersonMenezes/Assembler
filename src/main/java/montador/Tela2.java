@@ -24,15 +24,18 @@ public class Tela2 extends javax.swing.JFrame {
     private Montador montador = new Montador();
     public static Memory memory = new Memory();
     public Emulador emulador = new Emulador();
+    public Carregador carregador = new Carregador();
     public static String modulo1text = new String();
     public static String modulo2text = new String();
+    public static final int DC = 3000;
+    public static final int CS = 1000;
     //private Emulador emulador = new Emulador();
     /**
      * Creates new form Tela2
      */
     public Tela2() {
         initComponents();
-        updateInterface();
+        //updateInterface();
     }
 
     /**
@@ -45,7 +48,7 @@ public class Tela2 extends javax.swing.JFrame {
     private void initComponents() {
 
         mainPanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        sourceCodePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea = new javax.swing.JTextArea();
         codigoFonteLabel2 = new javax.swing.JLabel();
@@ -60,13 +63,13 @@ public class Tela2 extends javax.swing.JFrame {
         localizarLabel = new javax.swing.JLabel();
         localizaMemoryButton = new javax.swing.JButton();
         symbolTablePanel = new javax.swing.JPanel();
-        jScrollPane6 = new javax.swing.JScrollPane();
+        symbolScroll = new javax.swing.JScrollPane();
         jListSimbolos = new javax.swing.JList<>();
         symbolTableLabel = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        registersPanel = new javax.swing.JPanel();
+        registersJList = new javax.swing.JScrollPane();
         registersList = new javax.swing.JList<>();
-        jLabel1 = new javax.swing.JLabel();
+        registersLabel = new javax.swing.JLabel();
         executePanel = new javax.swing.JPanel();
         runStepButton = new javax.swing.JButton();
         runAllButton = new javax.swing.JButton();
@@ -75,11 +78,11 @@ public class Tela2 extends javax.swing.JFrame {
         outputLabel = new javax.swing.JLabel();
         terminalTextField = new javax.swing.JTextField();
         enterTerminalButton = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        terminalLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+        sourceCodePanel.setBackground(new java.awt.Color(204, 255, 255));
 
         jTextArea.setColumns(20);
         jTextArea.setRows(5);
@@ -112,26 +115,26 @@ public class Tela2 extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+        javax.swing.GroupLayout sourceCodePanelLayout = new javax.swing.GroupLayout(sourceCodePanel);
+        sourceCodePanel.setLayout(sourceCodePanelLayout);
+        sourceCodePanelLayout.setHorizontalGroup(
+            sourceCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sourceCodePanelLayout.createSequentialGroup()
+                .addGroup(sourceCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
                     .addComponent(codigoFonteLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(sourceCodePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(sourceCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(loadButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(assembleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(carregarArquivoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        sourceCodePanelLayout.setVerticalGroup(
+            sourceCodePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sourceCodePanelLayout.createSequentialGroup()
                 .addComponent(codigoFonteLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -199,7 +202,7 @@ public class Tela2 extends javax.swing.JFrame {
 
         symbolTablePanel.setBackground(new java.awt.Color(255, 204, 204));
 
-        jScrollPane6.setViewportView(jListSimbolos);
+        symbolScroll.setViewportView(jListSimbolos);
 
         symbolTableLabel.setText("Symbol Table");
 
@@ -211,7 +214,7 @@ public class Tela2 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(symbolTablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(symbolTableLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(symbolScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         symbolTablePanelLayout.setVerticalGroup(
@@ -220,40 +223,40 @@ public class Tela2 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(symbolTableLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(symbolScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45))
         );
 
-        jPanel4.setBackground(new java.awt.Color(204, 255, 204));
+        registersPanel.setBackground(new java.awt.Color(204, 255, 204));
 
         registersList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(registersList);
+        registersJList.setViewportView(registersList);
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Registers");
+        registersLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        registersLabel.setText("Registers");
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout registersPanelLayout = new javax.swing.GroupLayout(registersPanel);
+        registersPanel.setLayout(registersPanelLayout);
+        registersPanelLayout.setHorizontalGroup(
+            registersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(registersPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE))
+                .addGroup(registersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(registersJList)
+                    .addComponent(registersLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        registersPanelLayout.setVerticalGroup(
+            registersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(registersPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(registersLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                .addComponent(registersJList, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -319,9 +322,9 @@ public class Tela2 extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Terminal");
+        terminalLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        terminalLabel.setForeground(new java.awt.Color(255, 255, 255));
+        terminalLabel.setText("Terminal");
 
         javax.swing.GroupLayout terminalPanelLayout = new javax.swing.GroupLayout(terminalPanel);
         terminalPanel.setLayout(terminalPanelLayout);
@@ -332,7 +335,7 @@ public class Tela2 extends javax.swing.JFrame {
                 .addGroup(terminalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, terminalPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(terminalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44))
                     .addGroup(terminalPanelLayout.createSequentialGroup()
                         .addGroup(terminalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,7 +350,7 @@ public class Tela2 extends javax.swing.JFrame {
             terminalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(terminalPanelLayout.createSequentialGroup()
                 .addGap(9, 9, 9)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(terminalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(outputLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -364,7 +367,7 @@ public class Tela2 extends javax.swing.JFrame {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(sourceCodePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(terminalPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(24, 24, 24)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -374,7 +377,7 @@ public class Tela2 extends javax.swing.JFrame {
                     .addComponent(executePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(registersPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(symbolTablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(362, 362, 362))
         );
@@ -384,7 +387,7 @@ public class Tela2 extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(registersPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(symbolTablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(mainPanelLayout.createSequentialGroup()
@@ -392,7 +395,7 @@ public class Tela2 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(executePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(sourceCodePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(terminalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(139, Short.MAX_VALUE))
@@ -459,7 +462,7 @@ public class Tela2 extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(Tela2.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //this.updateInterface();
+       
     }//GEN-LAST:event_carregarArquivoButtonActionPerformed
 
     private void assembleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assembleButtonActionPerformed
@@ -505,22 +508,29 @@ public class Tela2 extends javax.swing.JFrame {
         } catch(IOException e){ 
             System.out.println("Erro 404: " + e.getMessage());
         } 
-        //this.updateInterface();
     }//GEN-LAST:event_assembleButtonActionPerformed
 
     private void localizarFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_localizarFieldActionPerformed
-        // TODO add your handling code here:
+        String str = localizarField.getText();
+        int adress = Integer.parseInt(str);
+        if(adress<8192 || adress>0){
+            memoryJList.ensureIndexIsVisible(adress+15);
+        }
+        
+        
     }//GEN-LAST:event_localizarFieldActionPerformed
 
 
     private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButtonActionPerformed
+        carregador.loadCodigo_Obj();
         this.updateInterface();
+        memoryJList.ensureIndexIsVisible(CS+15);
     }//GEN-LAST:event_loadButtonActionPerformed
 
     private void runStepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runStepButtonActionPerformed
         emulador.step();
         this.updateInterface();
-        memoryJList.ensureIndexIsVisible(emulador.IP);
+        memoryJList.ensureIndexIsVisible(emulador.IP + 15);
     }//GEN-LAST:event_runStepButtonActionPerformed
 
     private void runAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runAllButtonActionPerformed
@@ -539,7 +549,7 @@ public class Tela2 extends javax.swing.JFrame {
     }//GEN-LAST:event_enterTerminalButtonActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        memoryJList.ensureIndexIsVisible(Integer.parseInt(localizarField.getText()));
+        memoryJList.ensureIndexIsVisible(Integer.parseInt(localizarField.getText()) + 15);
         localizarField.setText("");
 
     }//GEN-LAST:event_jButton1MouseClicked
@@ -589,20 +599,20 @@ public class Tela2 extends javax.swing.JFrame {
     private void updateInterface(){
         DefaultListModel<String> memoryModel = new DefaultListModel<>();
         for(int i = 0;i<8192;i++){
-            memoryModel.addElement(String.format("%04d", i)+" - "+String.format("0x%08X", memory.getPalavra(i)));
+            memoryModel.addElement(String.format("%04d", i)+" - "+String.format("0x%02X", memory.getPalavra(i)));
         }
         memoryJList.setModel(memoryModel);
 
         DefaultListModel<String> listRegisterModel = new DefaultListModel<>();
-        listRegisterModel.addElement("AX: "+ String.format("0x%08X",emulador.AX));
-        listRegisterModel.addElement("DX: "+ String.format("0x%08X",emulador.DX));
-        listRegisterModel.addElement("SP: "+ String.format("0x%08X",emulador.SP));
-        listRegisterModel.addElement("SI: "+ String.format("0x%08X",emulador.SI));
-        listRegisterModel.addElement("IP: "+ String.format("0x%08X",emulador.IP));
-        listRegisterModel.addElement("SR: "+ String.format("0x%08X",emulador.SR));
-        listRegisterModel.addElement("DS: "+ String.format("0x%08X",emulador.DS));
-        listRegisterModel.addElement("CS: "+ String.format("0x%08X",emulador.CS));
-        listRegisterModel.addElement("SS: "+ String.format("0x%08X",emulador.SS));
+        listRegisterModel.addElement("AX: "+ String.format("0x%04X",emulador.AX));
+        listRegisterModel.addElement("DX: "+ String.format("0x%04X",emulador.DX));
+        listRegisterModel.addElement("SP: "+ String.format("0x%04X",emulador.SP));
+        listRegisterModel.addElement("SI: "+ String.format("0x%01X",emulador.SI));
+        listRegisterModel.addElement("IP: "+ String.format("0x%04X",emulador.IP));
+        listRegisterModel.addElement("SR: "+ String.format("0x%04X",emulador.SR));
+        listRegisterModel.addElement("DS: "+ String.format("0x%04X",emulador.DS));
+        listRegisterModel.addElement("CS: "+ String.format("0x%04X",emulador.CS));
+        listRegisterModel.addElement("SS: "+ String.format("0x%04X",emulador.SS));
         registersList.setModel(listRegisterModel);
         
         outputLabel.setText(emulador.outputStream!=null ? emulador.outputStream : "Output Message...");
@@ -614,15 +624,9 @@ public class Tela2 extends javax.swing.JFrame {
     private javax.swing.JLabel codigoFonteLabel2;
     private javax.swing.JButton enterTerminalButton;
     private javax.swing.JPanel executePanel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JList<String> jListSimbolos;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTextArea jTextArea;
     private javax.swing.JButton loadButton;
     private javax.swing.JButton localizaMemoryButton;
@@ -633,12 +637,18 @@ public class Tela2 extends javax.swing.JFrame {
     private javax.swing.JLabel memoryLabel;
     private javax.swing.JPanel memoryPanel;
     private javax.swing.JLabel outputLabel;
+    private javax.swing.JScrollPane registersJList;
+    private javax.swing.JLabel registersLabel;
     private javax.swing.JList<String> registersList;
+    private javax.swing.JPanel registersPanel;
     private javax.swing.JButton resetButton;
     private javax.swing.JButton runAllButton;
     private javax.swing.JButton runStepButton;
+    private javax.swing.JPanel sourceCodePanel;
+    private javax.swing.JScrollPane symbolScroll;
     private javax.swing.JButton symbolTableLabel;
     private javax.swing.JPanel symbolTablePanel;
+    private javax.swing.JLabel terminalLabel;
     private javax.swing.JPanel terminalPanel;
     private javax.swing.JTextField terminalTextField;
     // End of variables declaration//GEN-END:variables

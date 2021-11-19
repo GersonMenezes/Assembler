@@ -28,7 +28,6 @@ public class Montador {
     public  List<SimbolosUsados> tabelaDeSimbolosUsados = new ArrayList<SimbolosUsados>();
     public List<String> instrucoes = new ArrayList<String>();
     public List<Integer> data = new ArrayList<Integer>();
-    private Memory vetorTest = new Memory();
     private int programCounter = 0; // Marca a posição da instrução corrente
     private int dataCounter = 0; // Marca tamanho do segmento de dados, cada variavel e const 2 bytes
     private int sizeHeader = 4;
@@ -486,24 +485,8 @@ public class Montador {
             }  
         }
         
-        // Passa código intermediario para vetor de inteiro
         try{
-            int i = 1000;
-            for(String list: codeAux){ // Carrega intruções
-                list = "0x"+list;
-                int inst = Integer.decode(list);
-                vetorTest.setPalavra(inst, i);
-                i++;
-            }
-            i = 3000;
-            for(Integer datas: data){ // Carrega dados
-            
-                vetorTest.setPalavra(datas, i);
-                i++;
-            }
-            i = 0;
-               
-            // Coloca endereços de simbolos usados no vetor que irá para memoria
+            // Coloca endereços de simbolos usados no Array que irá para Código Fonte
             for(SimbolosUsados usados : tabelaDeSimbolosUsados){  
                 int position = usados.getOcorrencia();
                 String symbol = usados.getName();
@@ -519,6 +502,8 @@ public class Montador {
                 }
                 else if(adressOfSymbol<65536){ // Para valor de hexa que ocupa 2 byte, ex: aaf ou aaff
                    String adress  = Integer.toHexString(adressOfSymbol);
+                   System.out.println("Adress String " + adress);
+
                    String adressPart1 = adress.substring(0, 2);
                    String adressPart2 = adress.substring(2);
                    codeAux.set(position, adressPart1); 
@@ -527,7 +512,6 @@ public class Montador {
                 else if(adressOfSymbol>65536){ // Para valor de hexa que ocupa 2 byte, ex: aaaa
                    System.out.println("Adress size not supported");
                 }
-                codeAux.set(position, Integer.toString(adressOfSymbol));
             }
 
         }catch(NoSuchElementException e){
@@ -549,8 +533,7 @@ public class Montador {
         for(String list: codeAux){ // Carrega intruções
             finalCode += list + "\n";
         }
-
-        print_vetorTest();
+        
         writeSecondPassInFile(finalCode);
  
     }
@@ -569,7 +552,7 @@ public class Montador {
     
     public  void writeSecondPassInFile(String string) throws IOException{ // Escreve segunda passada em um arquivo .txt e exibe na interface
 
-        FileWriter fw = new FileWriter(new File(new String(System.getProperty("user.dir")+"/src/main/java/montador/codigo_objeto.txt")));
+        FileWriter fw = new FileWriter(new File(new String(System.getProperty("user.dir")+"/src/main/java/arquivos_txt/codigo_objeto.txt")));
         fw.write(string);
         fw.close();
         
@@ -612,24 +595,5 @@ public class Montador {
 
         }               
     }
-    public  void print_vetorTest() {  // Printa simbolos (variaveis e constantes) na tabela de simbolos com seus valores
-     
-        System.out.println("\n\nData here");
-        for (int i = 3000; i < (3000 + dataCounter); i++){
-            
-            System.out.println(vetorTest.getPalavra(i));
-            //Tela2.symbolTableModel.addElement(keys + " | " + tabelaDeSimbolosLocais.get(keys).getValue() +  " | " +  tabelaDeSimbolosLocais.get(keys).isRelocable() +  " | "  + tabelaDeSimbolosLocais.get(keys).isDefinited());
-
-        } 
-        System.out.println("\nInstructions here");
-        for (int i = 1000; i < (1000 + programCounter); i++){
-            
-            System.out.println(vetorTest.getPalavra(i));
-            //Tela2.symbolTableModel.addElement(keys + " | " + tabelaDeSimbolosLocais.get(keys).getValue() +  " | " +  tabelaDeSimbolosLocais.get(keys).isRelocable() +  " | "  + tabelaDeSimbolosLocais.get(keys).isDefinited());
-
-        } 
-    }
-    
-    
-            
+         
 }
