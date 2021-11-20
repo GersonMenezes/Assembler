@@ -292,7 +292,7 @@ public class Montador {
                 programCounter += 2; 
             
             }else if(instrucao.matches("popf")){
-                codigoIntermediario += "0x9d" + "\n";
+                codigoIntermediario += "0x9C" + "\n";
                 programCounter += 1; 
                 
             }else if(instrucao.matches("pop .*")){
@@ -499,6 +499,14 @@ public class Montador {
                 
                 if(adressOfSymbol<256){ // Para valor de hexa que ocupa 1 byte, ex: a e aa
                    codeAux.set(position, Integer.toHexString(adressOfSymbol)); 
+                }else if(adressOfSymbol<4096){ // Para valor de hexa que ocupa 2 byte, ex: aaf ou aaff
+                   String adress  = Integer.toHexString(adressOfSymbol);
+                   System.out.println("Adress String " + adress);
+
+                   String adressPart1 = adress.substring(0, 1);
+                   String adressPart2 = adress.substring(1);
+                   codeAux.set(position, adressPart1); 
+                   codeAux.set(position + 1, adressPart2);
                 }
                 else if(adressOfSymbol<65536){ // Para valor de hexa que ocupa 2 byte, ex: aaf ou aaff
                    String adress  = Integer.toHexString(adressOfSymbol);
