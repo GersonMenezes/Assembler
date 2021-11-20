@@ -86,6 +86,11 @@ public class Emulador {
     }
 
     public void step(){
+        if(finished) {
+            this.outputStream="Finished";
+            return;
+        }
+
         int div;
         int mul;
         int opd = 0;
@@ -94,6 +99,21 @@ public class Emulador {
         
         int instruction = Tela2.memory.getPalavra(CS+IP++);
         switch((int)instruction){
+            case 0x8B:// move registrador
+                instructionSeconByte = Tela2.memory.getPalavra(CS+IP++);
+                if(instructionSeconByte == 0xc2){
+                    DX = AX ;
+                }else if(instructionSeconByte ==0xD0){
+                    AX = DX;
+                }
+            break;
+            case 0xA1:// move opd
+                opd = Tela2.memory.getPalavra(CS+IP++);
+                AX = opd;
+            case 0xA3:// move opd
+                opd = Tela2.memory.getPalavra(CS+IP++);
+                Tela2.memory.setPalavra(AX, opd);
+            break;
             case 0x03:// add ax
                 instructionSeconByte = Tela2.memory.getPalavra(CS+IP++);
                 if(instructionSeconByte == 0xc0){
@@ -112,10 +132,16 @@ public class Emulador {
                     div = AX / SI;
                     AX = (int)(div & 256);
                     DX = (int)(div >>> 8);
-                }else{
+                }else if(instructionSeconByte == 0xc0){
                     div = AX / AX;
                     AX = (int)(div & 256);
                     DX = (int)(div >>> 8);
+                }else if(instructionSeconByte == 0xf0){
+                    mul = AX * AX;
+                    AX = (int)(mul & 256);
+                    DX = (int)(mul >>> 8);
+                }else if(instructionSeconByte == 0xc2){
+                    AX &=DX;
                 }
                 
             break;
@@ -128,24 +154,18 @@ public class Emulador {
                 }
                 
             break;
-            case 0x25:// sub opd
+            case 0x25:// and opd
                 Tela2.memory.getPalavra(CS+IP++);
-                AX -= opd;
+                AX &= opd;
             break;
-            // case 0xf7f6:// mul si
-                //todo
-            // break;
-            /*case 0xf7: // mul AX
+            case 0xf6: // mul 
                 instructionSeconByte = Tela2.memory.getPalavra(CS+IP++);
-                if(instructionSeconByte == 0xf0){
+                if(instructionSeconByte == 0xf7){
                     mul = AX * AX;
                     AX = (int)(mul & 256);
                     DX = (int)(mul >>> 8);
-                }else{
-                    opd = Tela2.memory.getPalavra(CS+IP++);
-                    setFlag("zf", AX == opd);
                 }
-            break;*/
+            break;
             case 0x3b://cmp DX
                 instructionSeconByte = Tela2.memory.getPalavra(CS+IP++);
                 if(instructionSeconByte == 0xc2){
@@ -162,10 +182,6 @@ public class Emulador {
                 }
                 
             break;
-            // case 0x25:// and opd
-                //todo
-                // CS+IP++;
-            // break;
             case 0xf8:// not ax
                 instructionSeconByte = Tela2.memory.getPalavra(CS+IP++);
                 if(instructionSeconByte == 0xc0){
@@ -254,11 +270,15 @@ public class Emulador {
             case 0x9c://pushf
                 Tela2.memory.setPalavra(SR, SI++);
             break;
-            case 0x07c0:// store ax
-                //todo
-            break;
-            case 0x07c2:// store dx
-                //todo
+            case 0x07:// store ax
+                instructionSeconByte = Tela2.memory.getPalavra(CS+IP++);
+                if(instructionSeconByte == 0xc0){
+                    opd = Tela2.memory.getPalavra(IP++);
+                    Tela2.memory.setPalavra(AX,opd);
+                }else if(instructionSeconByte == 0xc2){
+                    opd = Tela2.memory.getPalavra(IP++);
+                    Tela2.memory.setPalavra(DX,opd);
+                }
             break;
             case 0x12:// read opd
                 opd = Tela2.memory.getPalavra(IP++);

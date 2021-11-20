@@ -292,7 +292,7 @@ public class Montador {
                 programCounter += 2; 
             
             }else if(instrucao.matches("popf")){
-                codigoIntermediario += "0x9C" + "\n";
+                codigoIntermediario += "0x9d" + "\n";
                 programCounter += 1; 
                 
             }else if(instrucao.matches("pop .*")){
