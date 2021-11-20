@@ -1,12 +1,12 @@
-C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\tables\SimbolosUsados.java
-C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\montador\Util.java
-C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\montador\Memory.java
-C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\tables\SimbolosGlobais.java
-C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\montador\Tela2.java
-C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\montador\Emulador.java
-C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\montador\Macro.java
-C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\montador\Montador.java
-C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\tables\SimbolosLocais.java
-C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\tables\TabeladeDefinicao.java
-C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\montador\Carregador.java
-C:\Users\Gerson Menezes\Documents\Assembler\src\main\java\montador\ProcessaMacro.java
+/home/renafs/Documents/Assembler/src/main/java/montador/Carregador.java
+/home/renafs/Documents/Assembler/src/main/java/montador/Emulador.java
+/home/renafs/Documents/Assembler/src/main/java/tables/SimbolosGlobais.java
+/home/renafs/Documents/Assembler/src/main/java/tables/SimbolosLocais.java
+/home/renafs/Documents/Assembler/src/main/java/montador/Montador.java
+/home/renafs/Documents/Assembler/src/main/java/montador/Tela2.java
+/home/renafs/Documents/Assembler/src/main/java/montador/ProcessaMacro.java
+/home/renafs/Documents/Assembler/src/main/java/montador/Memory.java
+/home/renafs/Documents/Assembler/src/main/java/montador/Macro.java
+/home/renafs/Documents/Assembler/src/main/java/tables/SimbolosUsados.java
+/home/renafs/Documents/Assembler/src/main/java/tables/TabeladeDefinicao.java
+/home/renafs/Documents/Assembler/src/main/java/montador/Util.java
