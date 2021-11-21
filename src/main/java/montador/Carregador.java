@@ -57,14 +57,14 @@ public class Carregador {
          for (int i =0; i<qtd_dados; i++){
              int valor = Integer.parseInt(CodigoObjeto.get(posicao).trim(),16);
              
-             Tela2.memory.setPalavra(valor, posDados++);  
+             Tela2.memory.setPalavra(valor, (posDados++));  
        
              posicao++;
          }
-          
+         posicao--; 
          for (int i =0; i<qtd_instruções; i++){
              int valor = Integer.parseInt(CodigoObjeto.get(posicao).trim(),16);
-             Tela2.memory.setPalavra(valor, posInstrucoes++);
+             Tela2.memory.setPalavra(valor, (posInstrucoes++));
              posicao++;
          }
 

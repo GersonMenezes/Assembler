@@ -16,7 +16,7 @@ public class Emulador {
     public int DX = 0;
     public int SP = 0;
     public int SI = 0;
-    public int IP = 1000;
+    public int IP = 0;
     public int SR = 0;
     public int DS = 3000;
     public int CS = 1000;
@@ -94,31 +94,47 @@ public class Emulador {
         int div;
         int mul;
         int opd = 0, opd2 = 0;
+        String byte1, byte2, bytes;
         if(finished) return;
         int instructionSeconByte;
         
         int instruction = Tela2.memory.getPalavra(CS+IP++);
+        System.out.println("Memory data: " + Integer.toHexString(instruction));
         switch((int)instruction){
             case 0x8B:// move registrador
-                instructionSeconByte = Tela2.memory.getPalavra(CS+IP++);
-                if(instructionSeconByte == 0xc2){
+                
+                opd = Tela2.memory.getPalavra(CS+IP++);
+                //int instructionThirdByte = Tela2.memory.getPalavra(CS+IP++);
+                if(opd == 0xc2){
                     DX = AX ;
-                }else if(instructionSeconByte ==0xD0){
+                }else if(opd ==0xD0){
                     AX = DX;
                 }
             break;
-            case 0xA1:// move opd
+            case 0xA1:// move ax, opd
+                
                 opd = Tela2.memory.getPalavra(CS+IP++);
-                opd2 = Tela2.memory.getPalavra(CS+IP++)<<8;
-                AX = opd+opd2;
-            case 0xA3:// move opd
-                opd = Tela2.memory.getPalavra(CS+IP++);
-                opd2 = Tela2.memory.getPalavra(CS+IP++)<<8;
-                Tela2.memory.setPalavra(AX, opd+opd2);
+                opd2 = Tela2.memory.getPalavra(CS+IP++);
+                byte1 = Integer.toHexString(opd);
+                byte2 = Integer.toHexString(opd2);
+                bytes = "0x" + byte1 + byte2;
+                System.out.println("Bytes: " + byte1 + " " + byte2 + " " + bytes);
+                AX =  Tela2.memory.getPalavra(Integer.decode(bytes));
+                
+                System.out.println("Register AX: " + AX);
             break;
-            case 0x03:// add ax
-                instructionSeconByte = Tela2.memory.getPalavra(CS+IP++);
-                if(instructionSeconByte == 0xc0){
+            case 0xA3:// move opd, ax
+                opd = Tela2.memory.getPalavra(CS+IP++);
+                opd2 = Tela2.memory.getPalavra(CS+IP++);
+                byte1 = Integer.toHexString(opd);
+                byte2 = Integer.toHexString(opd2);
+                bytes = "0x" + byte1 + byte2;
+                Tela2.memory.setPalavra(AX, Integer.decode(bytes));
+            break;
+            case 0x03:// add ax, ax and add ax, dx
+                opd = Tela2.memory.getPalavra(CS+IP++);
+                
+                if(opd == 0xc0){
                     AX += AX;
                 }else{
                     AX += DX;
@@ -126,8 +142,13 @@ public class Emulador {
             break;
             case 0x05: // add opd
                 opd = Tela2.memory.getPalavra(CS+IP++);
-                opd2 = Tela2.memory.getPalavra(CS+IP++)<<8;
-                AX += opd+opd2;
+                opd2 = Tela2.memory.getPalavra(CS+IP++);
+                byte1 = Integer.toHexString(opd);
+                byte2 = Integer.toHexString(opd2);
+                bytes = "0x" + byte1 + byte2;
+                System.out.println("Bytes: " + byte1 + " " + byte2 + " " + bytes);
+                AX = AX + Tela2.memory.getPalavra(Integer.decode(bytes));;
+                System.out.println("Register AX: " + AX);
             break;
             case 0xf7 :// div si
                 instructionSeconByte = Tela2.memory.getPalavra(CS+IP++);

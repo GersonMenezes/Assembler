@@ -530,7 +530,7 @@ public class Tela2 extends javax.swing.JFrame {
     private void runStepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runStepButtonActionPerformed
         emulador.step();
         this.updateInterface();
-        memoryJList.ensureIndexIsVisible(emulador.IP + 15);
+        memoryJList.ensureIndexIsVisible(CS + emulador.IP + 15);
     }//GEN-LAST:event_runStepButtonActionPerformed
 
     private void runAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runAllButtonActionPerformed
@@ -597,11 +597,11 @@ public class Tela2 extends javax.swing.JFrame {
     }
 
     private void updateInterface(){
-        DefaultListModel<String> memoryModel = new DefaultListModel<>();
+        listMemoryModel = new DefaultListModel<>();
         for(int i = 0;i<8192;i++){
-            memoryModel.addElement(String.format("%04d", i)+" - "+String.format("0x%02X", memory.getPalavra(i)));
+            listMemoryModel.addElement(String.format("%04d", i)+" - "+String.format("0x%02X", memory.getPalavra(i)));
         }
-        memoryJList.setModel(memoryModel);
+        memoryJList.setModel(listMemoryModel);
 
         DefaultListModel<String> listRegisterModel = new DefaultListModel<>();
         listRegisterModel.addElement("AX: "+ String.format("0x%04X",emulador.AX));
