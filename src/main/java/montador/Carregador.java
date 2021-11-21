@@ -1,5 +1,5 @@
 /* Conteúdo do código objeto. Cada linha é um byte
-// Cabeçalho:, tamanho do cabeçalho, tamanho dos dados, tamanho das instruções
+// Cabeçalho: tamanho do arquivo, tamanho do cabeçalho, tamanho dos dados, tamanho das instruções
 // Segmento de Dados
 // Segmento de Intruções
 
@@ -47,8 +47,10 @@ public class Carregador {
 
      public void loadMemory(){
          
-         int qtd_instruções = Integer.parseInt(CodigoObjeto.get(2),16);
-         int qtd_dados = Integer.parseInt(CodigoObjeto.get(3),16);
+         int qtd_dados = Integer.parseInt(CodigoObjeto.get(2),16);
+         int qtd_instrucoes = Integer.parseInt(CodigoObjeto.get(3),16);
+         System.out.println("Qtds: " + qtd_dados +" and "+ qtd_instrucoes);
+
          int posDados = 3000;
          int posInstrucoes = 1000;
          int posicao = 4;
@@ -61,8 +63,8 @@ public class Carregador {
        
              posicao++;
          }
-         posicao--; 
-         for (int i =0; i<qtd_instruções; i++){
+         
+         for (int i =0; i<qtd_instrucoes; i++){
              int valor = Integer.parseInt(CodigoObjeto.get(posicao).trim(),16);
              Tela2.memory.setPalavra(valor, (posInstrucoes++));
              posicao++;

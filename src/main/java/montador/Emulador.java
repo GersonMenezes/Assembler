@@ -106,9 +106,9 @@ public class Emulador {
                 opd = Tela2.memory.getPalavra(CS+IP++);
                 //int instructionThirdByte = Tela2.memory.getPalavra(CS+IP++);
                 if(opd == 0xc2){
-                    DX = AX ;
-                }else if(opd ==0xD0){
                     AX = DX;
+                }else if(opd == 0xD0){
+                    DX = AX ;
                 }
             break;
             case 0xA1:// move ax, opd
