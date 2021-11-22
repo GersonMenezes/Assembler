@@ -146,9 +146,7 @@ public class Emulador {
                 byte1 = Integer.toHexString(opd);
                 byte2 = Integer.toHexString(opd2);
                 bytes = "0x" + byte1 + byte2;
-                System.out.println("Bytes: " + byte1 + " " + byte2 + " " + bytes);
                 AX = AX + Tela2.memory.getPalavra(Integer.decode(bytes));;
-                System.out.println("Register AX: " + AX);
             break;
             case 0xf7 :// div si
                 instructionSeconByte = Tela2.memory.getPalavra(CS+IP++);
@@ -180,8 +178,11 @@ public class Emulador {
             break;
             case 0x25:// and opd
                 opd = Tela2.memory.getPalavra(CS+IP++);
-                opd2 = Tela2.memory.getPalavra(CS+IP++)<<8;
-                AX &= opd+opd2;
+                opd2 = Tela2.memory.getPalavra(CS+IP++);
+                byte1 = Integer.toHexString(opd);
+                byte2 = Integer.toHexString(opd2);
+                bytes = "0x" + byte1 + byte2;
+                AX &= Integer.decode(bytes);
             break;
             case 0xf6: // mul 
                 instructionSeconByte = Tela2.memory.getPalavra(CS+IP++);
@@ -225,8 +226,11 @@ public class Emulador {
             break;
             case 0x0d:// or opd
                 opd = Tela2.memory.getPalavra(CS+IP++);
-                opd2 = Tela2.memory.getPalavra(CS+IP++)<<8;
-                AX |= opd+opd2;
+                opd2 = Tela2.memory.getPalavra(CS+IP++);
+                byte1 = Integer.toHexString(opd);
+                byte2 = Integer.toHexString(opd2);
+                bytes = "0x" + byte1 + byte2;
+                AX |= Integer.decode(bytes);
             break;
             case 0x33c0:// xor ax
             instructionSeconByte = Tela2.memory.getPalavra(CS+IP++);
@@ -239,34 +243,51 @@ public class Emulador {
             break;
             case 0x35:// xor opd
                 opd = Tela2.memory.getPalavra(CS+IP++);
-                opd2 = Tela2.memory.getPalavra(CS+IP++)<<8;
-                AX^=opd+opd2;
+                opd2 = Tela2.memory.getPalavra(CS+IP++);
+                byte1 = Integer.toHexString(opd);
+                byte2 = Integer.toHexString(opd2);
+                bytes = "0x" + byte1 + byte2;
+                AX^=Integer.decode(bytes);
             break;
             case 0xeb:// jmp
                 opd = Tela2.memory.getPalavra(CS+IP++);
-                opd2 = Tela2.memory.getPalavra(CS+IP++)<<8;
-                IP = opd+opd2;
+                opd2 = Tela2.memory.getPalavra(CS+IP++);
+                byte1 = Integer.toHexString(opd);
+                byte2 = Integer.toHexString(opd2);
+                bytes = "0x" + byte1 + byte2;
+                IP = Integer.decode(bytes);
             break;
             case 0x74:// jz
-            opd = Tela2.memory.getPalavra(CS+IP++);
-            opd2 = Tela2.memory.getPalavra(CS+IP++)<<8;
-                if(getFlag("zf")) IP = opd+opd2;
+                opd = Tela2.memory.getPalavra(CS+IP++);
+                opd2 = Tela2.memory.getPalavra(CS+IP++);
+                byte1 = Integer.toHexString(opd);
+                byte2 = Integer.toHexString(opd2);
+                bytes = "0x" + byte1 + byte2;
+                if(getFlag("zf")) IP = Integer.decode(bytes);
             break;
             case 0x75:// jnz
-            opd = Tela2.memory.getPalavra(CS+IP++);
-            opd2 = Tela2.memory.getPalavra(CS+IP++)<<8;
-                if(!getFlag("zf")) IP = opd+opd2;
+                opd = Tela2.memory.getPalavra(CS+IP++);
+                opd2 = Tela2.memory.getPalavra(CS+IP++);
+                byte1 = Integer.toHexString(opd);
+                byte2 = Integer.toHexString(opd2);
+                bytes = "0x" + byte1 + byte2;   
+                if(!getFlag("zf")) IP = Integer.decode(bytes);
             break;
             case 0x7a:// jp
                 opd = Tela2.memory.getPalavra(CS+IP++);
-                opd2 = Tela2.memory.getPalavra(CS+IP++)<<8;
-                if(!getFlag("SF")) IP = opd+opd2;
+                opd2 = Tela2.memory.getPalavra(CS+IP++);
+                byte1 = Integer.toHexString(opd);
+                byte2 = Integer.toHexString(opd2);
+                bytes = "0x" + byte1 + byte2; 
+                if(!getFlag("SF")) IP = Integer.decode(bytes);
             break;
             case 0xe8:// call
                 opd = Tela2.memory.getPalavra(CS+IP++);
-                opd2 = Tela2.memory.getPalavra(CS+IP++)<<8;
-                Tela2.memory.setPalavra(IP, SI++);
-                IP = opd+opd2;
+                opd2 = Tela2.memory.getPalavra(CS+IP++);
+                byte1 = Integer.toHexString(opd);
+                byte2 = Integer.toHexString(opd2);
+                bytes = "0x" + byte1 + byte2; 
+                IP = Integer.decode(bytes);
             break;
             case 0xef:// ret
                 IP = Tela2.memory.getPalavra(--SI);
@@ -282,8 +303,11 @@ public class Emulador {
             break;
             case 0x59:// pop opd
                 opd = Tela2.memory.getPalavra(CS+IP++);
-                opd2 = Tela2.memory.getPalavra(CS+IP++)<<8;
-                Tela2.memory.setPalavra(Tela2.memory.getPalavra(--SI), DS+opd+opd2);
+                opd2 = Tela2.memory.getPalavra(CS+IP++);
+                byte1 = Integer.toHexString(opd);
+                byte2 = Integer.toHexString(opd2);
+                bytes = "0x" + byte1 + byte2;
+                Tela2.memory.setPalavra(Tela2.memory.getPalavra(--SI), DS + Integer.decode(bytes));
             break;
             case 0x9d:// popf
                 SR = Tela2.memory.getPalavra(--SI);
@@ -309,18 +333,27 @@ public class Emulador {
                 instructionSeconByte = Tela2.memory.getPalavra(CS+IP++);
                 if(instructionSeconByte == 0xc0){
                     opd = Tela2.memory.getPalavra(CS+IP++);
-                    opd2 = Tela2.memory.getPalavra(CS+IP++)<<8;
-                    Tela2.memory.setPalavra(AX,opd+opd2);
+                    opd2 = Tela2.memory.getPalavra(CS+IP++);
+                    byte1 = Integer.toHexString(opd);
+                    byte2 = Integer.toHexString(opd2);
+                    bytes = "0x" + byte1 + byte2;
+                    Tela2.memory.setPalavra(AX, Integer.decode(bytes));
                 }else if(instructionSeconByte == 0xc2){
                     opd = Tela2.memory.getPalavra(CS+IP++);
-                    opd2 = Tela2.memory.getPalavra(CS+IP++)<<8;
-                    Tela2.memory.setPalavra(DX,opd+opd2);
+                    opd2 = Tela2.memory.getPalavra(CS+IP++);
+                    byte1 = Integer.toHexString(opd);
+                    byte2 = Integer.toHexString(opd2);
+                    bytes = "0x" + byte1 + byte2;
+                    Tela2.memory.setPalavra(DX, Integer.decode(bytes));
                 }
             break;
             case 0x12:// read opd
                 opd = Tela2.memory.getPalavra(CS+IP++);
-                opd2 = Tela2.memory.getPalavra(CS+IP++)<<8;
-                outputStream = Util.convertIntegerToBinary(opd+opd2);
+                opd2 = Tela2.memory.getPalavra(CS+IP++);
+                byte1 = Integer.toHexString(opd);
+                byte2 = Integer.toHexString(opd2);
+                bytes = "0x" + byte1 + byte2;
+                outputStream = Util.convertIntegerToBinary(Integer.decode(bytes));
                 if(inputStream.size()>inputStreamIndex){
                     Tela2.memory.setPalavra(inputStream.get(inputStreamIndex++).intValue(), opd+opd2);
                 }else{
@@ -329,8 +362,11 @@ public class Emulador {
             break;
             case 0x08:// write opd
                 opd = Tela2.memory.getPalavra(CS+IP++);
-                opd2 = Tela2.memory.getPalavra(CS+IP++)<<8;
-                outputStream = Util.convertIntegerToBinary(opd+opd2);
+                opd2 = Tela2.memory.getPalavra(CS+IP++);
+                byte1 = Integer.toHexString(opd);
+                byte2 = Integer.toHexString(opd2);
+                bytes = "0x" + byte1 + byte2;
+                outputStream = Util.convertIntegerToBinary(Integer.decode(bytes));
             break;
             case 0xEE: // hlt
                 this.finished = true;

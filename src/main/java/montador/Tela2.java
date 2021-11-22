@@ -167,6 +167,11 @@ public class Tela2 extends javax.swing.JFrame {
         localizarLabel.setText("Find Memory");
 
         localizaMemoryButton.setText("Enter");
+        localizaMemoryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                localizaMemoryButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout memoryPanelLayout = new javax.swing.GroupLayout(memoryPanel);
         memoryPanel.setLayout(memoryPanelLayout);
@@ -517,7 +522,6 @@ public class Tela2 extends javax.swing.JFrame {
             memoryJList.ensureIndexIsVisible(adress+15);
         }
         
-        
     }//GEN-LAST:event_localizarFieldActionPerformed
 
 
@@ -560,6 +564,14 @@ public class Tela2 extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_terminalTextFieldKeyTyped
+
+    private void localizaMemoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_localizaMemoryButtonActionPerformed
+        String str = localizarField.getText();
+        int adress = Integer.parseInt(str);
+        if(adress<8192 || adress>0){
+            memoryJList.ensureIndexIsVisible(adress+15);
+        }
+    }//GEN-LAST:event_localizaMemoryButtonActionPerformed
 
     /**
      * @param args the command line arguments

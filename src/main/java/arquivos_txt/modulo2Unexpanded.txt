@@ -8,3 +8,4 @@ move DX, AX
 move AX, dez
 add AX, DX
 move resulto, AX
+hlt
