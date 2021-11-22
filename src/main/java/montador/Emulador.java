@@ -99,7 +99,6 @@ public class Emulador {
         int instructionSeconByte;
         
         int instruction = Tela2.memory.getPalavra(CS+IP++);
-        System.out.println("Memory data: " + Integer.toHexString(instruction));
         switch((int)instruction){
             case 0x8B:// move registrador
                 
@@ -118,10 +117,7 @@ public class Emulador {
                 byte1 = Integer.toHexString(opd);
                 byte2 = Integer.toHexString(opd2);
                 bytes = "0x" + byte1 + byte2;
-                System.out.println("Bytes: " + byte1 + " " + byte2 + " " + bytes);
                 AX =  Tela2.memory.getPalavra(Integer.decode(bytes));
-                
-                System.out.println("Register AX: " + AX);
             break;
             case 0xA3:// move opd, ax
                 opd = Tela2.memory.getPalavra(CS+IP++);

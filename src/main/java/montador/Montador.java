@@ -440,7 +440,6 @@ public class Montador {
 
                 System.out.println("Instrucao nao reconhecida = " + instrucao);
             }      
-
         //updateRegistrador(instrucoes.size(),"DS");    CASO SETAR DINAMICAMENTE OS SEGMENTOS   PILHA-INSTRUCOES-DADOS
         }
         writeFirstPassInFile(codigoIntermediario);
@@ -501,8 +500,6 @@ public class Montador {
                    codeAux.set(position, Integer.toHexString(adressOfSymbol)); 
                 }else if(adressOfSymbol<4096){ // Para valor de hexa que ocupa 2 byte, ex: aaf ou aaff
                    String adress  = Integer.toHexString(adressOfSymbol);
-                   System.out.println("Adress String " + adress);
-
                    String adressPart1 = adress.substring(0, 1);
                    String adressPart2 = adress.substring(1);
                    codeAux.set(position, adressPart1); 
@@ -541,9 +538,7 @@ public class Montador {
         for(String list: codeAux){ // Carrega intruções
             finalCode += list + "\n";
         }
-        
         writeSecondPassInFile(finalCode);
- 
     }
 
     public  void writeFirstPassInFile(String string) throws IOException{ // Escreve primeira passada em um arquivo .txt e exibe na interface
@@ -551,11 +546,6 @@ public class Montador {
         FileWriter fw = new FileWriter(new File(new String(System.getProperty("user.dir")+"/src/main/java/arquivos_txt/firstPass.txt")));
         fw.write(string);
         fw.close();
-        
-        /*String[] vetor = string.split("\n");
-        for (int i = 0; i < vetor.length; i++){     // Para adiciona texto intermediario na interface
-            Tela2.listMemoryModel.addElement(vetor[i]);
-        }*/
     }
     
     public  void writeSecondPassInFile(String string) throws IOException{ // Escreve segunda passada em um arquivo .txt e exibe na interface
@@ -577,7 +567,6 @@ public class Montador {
  
             System.out.println(keys + " = " + tabelaDeSimbolosLocais.get(keys).getValue() + " | Position: " + tabelaDeSimbolosLocais.get(keys).getPosition());
             Tela2.symbolTableModel.addElement(keys + " | " + tabelaDeSimbolosLocais.get(keys).getValue() +  " | " +  tabelaDeSimbolosLocais.get(keys).isRelocable() +  " | "  + tabelaDeSimbolosLocais.get(keys).isDefinited());
-
         }               
     }
     
@@ -585,23 +574,7 @@ public class Montador {
      
         System.out.println("\nTabela de Simbolos usados: \n\n" + "Tamanho da Tabela: " + tabelaDeSimbolosUsados.size());
         for (SimbolosUsados simbolos : tabelaDeSimbolosUsados){
- 
             System.out.println(simbolos.getName() + " | Adress of ocorrencia: " + simbolos.getOcorrencia());
-            //Tela2.symbolTableModel.addElement(keys + " | " + tabelaDeSimbolosLocais.get(keys).getValue() +  " | " +  tabelaDeSimbolosLocais.get(keys).isRelocable() +  " | "  + tabelaDeSimbolosLocais.get(keys).isDefinited());
-
         }               
-    }
-    
-    public  void print_data() {  // Printa simbolos (variaveis e constantes) na tabela de simbolos com seus valores
-     
-        System.out.println("Tabela de simbolos usados: \n" + "Tamanho da Tabela: " + tabelaDeSimbolosUsados.size());
-        System.out.println("Vetor de dados: ");
-        for (Integer datas : data){
- 
-            System.out.println(datas);
-            //Tela2.symbolTableModel.addElement(keys + " | " + tabelaDeSimbolosLocais.get(keys).getValue() +  " | " +  tabelaDeSimbolosLocais.get(keys).isRelocable() +  " | "  + tabelaDeSimbolosLocais.get(keys).isDefinited());
-
-        }               
-    }
-         
+    }       
 }
